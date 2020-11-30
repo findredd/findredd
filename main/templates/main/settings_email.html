@@ -1,0 +1,38 @@
+{% extends 'main/settings_profile.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}FindREDD | Settings - Email {% endblock %}
+
+{% block navigation-bar-settings %}
+<span>
+    <a href="{% url 'settings' 'email' %}"><small><b>Email</b></small></a>
+</span>
+{% endblock %}
+
+{% block sidebar-profile-div-active %} class="sidebar-item" {% endblock %}
+{% block sidebar-profile-link-active %} class="nav-link sidebar-link" href="{% url 'settings' 'profile' %}" {% endblock %}
+
+{% block sidebar-email-div %} class="sidebar-item-active" {% endblock %}
+{% block sidebar-email-link %} class="nav-link sidebar-link-active" {% endblock %}
+
+{% block user-form-section %}
+<h4><b>Email settings</b></h4><hr>
+
+<form method="POST" class="user-form settings-form">
+    {% csrf_token %}
+    <div class="user-form-field">
+        {{ form.email|as_crispy_field }}
+        <p class="mt-n2 text-muted user-form-field-para">
+            <span>You email address will only be used to reset the password and for the security purposes. FindREDD does not show your email address anywhere but if you want it to be visible then you may select the option given below.</span>
+        </p>
+    </div>
+
+    <div class="user-form-field">
+        {{ form_EA.show_email_address_on_profile|as_crispy_field }}
+    </div>
+
+    <button type="submit" class="btn btn-success btn-sm">Update email</button>
+</form>
+
+{% endblock %}

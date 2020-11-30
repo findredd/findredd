@@ -1,0 +1,318 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/form.css' %}">
+{% endblock %}
+
+{% block title %}FindREDD | {% if object.userdetail.name %}{{ object.userdetail.name }} - {% endif %}@{{ object.username }} {% endblock %}
+
+{% block style %}
+<style>
+
+    .profile-section {
+        background-color: white;
+        padding-bottom: 32px;
+        padding-top: 0;
+        border-bottom: 1px solid rgb(216, 216, 216);
+    }
+
+    .user-contact .phone-icon {
+        transition: 0.2s;
+    }
+
+    .user-contact .email-icon {
+        transition: 0.2s;
+    }
+
+    .user-contact .phone-icon:hover, .email-icon:hover {
+        opacity: 0.7;
+        transition: 0.2s;        
+    }
+
+    .user-social-url .website-icon {
+        transition: 0.2s;
+    }
+
+    .user-social-url .facebook-icon {
+        transition: 0.2s;
+    }
+
+    .user-social-url .twitter-icon {
+        transition: 0.2s;
+    }
+
+    .user-social-url .instagram-icon {
+        transition: 0.2s;
+    }
+
+    .user-social-url .website-icon:hover, .facebook-icon:hover, .twitter-icon:hover, .instagram-icon:hover {
+        opacity: 0.7;
+        transition: 0.2s;
+    }
+
+    .not-found-section {
+        border: 1px solid rgb(216, 216, 216);
+        border-radius: 5px;
+    }
+
+    .btn-custom, .btn-custom:active {
+        background-color: white;
+        color: #212529;
+        border: 1px solid rgb(216, 216, 216);
+    }
+
+    .btn-custom:hover {
+        background-color: rgb(241, 241, 241);
+        color: #212529;
+        border: 1px solid rgb(216, 216, 216);
+        opacity: 0.7;
+    }
+
+    .btn-custom:focus {
+        background-color: rgb(241, 241, 241);
+        color: #212529;
+        border: 1px solid rgb(216, 216, 216);
+    }
+
+    .modal-header {
+        background: #212529;
+        color: white;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .modal-header .close {
+        color: white;   
+    }
+
+    .modal-body {
+        font-size: 14px;
+    }
+
+    .modal-footer {
+        background: white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+</style>
+{% endblock %}
+
+{% block script-top %}
+    <script src="{% static 'main/form.js' %}"></script>
+{% endblock %}
+
+<!-- Profile Section -->
+{% block main-content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="container-fluid alert {{ message.tags }}">
+            <div class="container message">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span id="id_message">{{ message }}</span>
+
+                {% if 'error' in message.tags %}
+                <script>
+                    errorList();
+                </script>
+                {% endif %}
+                
+                {% if temp_acc_profile %}
+                — <a href="{% url 'settings' 'profile' %}">settings</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!-- Edit Profile Section -->
+<div class="modal fade" id="editProfile">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+  
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <span class="modal-title"><b>Edit profile</b></span>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+    
+            <!-- User Edit Profile Form -->
+            
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <small class="text-muted">For more control on profile, go to <a href="{% url 'settings' 'profile' %}">Settings</a></small>
+
+                </div>
+    
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                    </form>
+                </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="jumbotron jumbotron-fluid profile-section">
+    <div class="container-lg text-center">
+
+        <a href="{% url 'profile' object.username 'photo' %}"><img src="{{ object.userpicture.profile_picture.url }}" class="rounded-circle mt-5" width="120px"></a>
+        <div class="mt-1">
+
+            <h4 class="mb-0">
+                <b>
+                    {% if object.userdetail.name %}
+                        {{ object.userdetail.name }}
+
+                        {% if object.userconfig.verified %}
+                            <img src="{% static 'main/images/icons/verified.png' %}" class="mt-n1" width="24px" data-toggle="tooltip" title="Verified">
+                        {% endif %}
+                        
+                    {% endif %}
+
+                </b>
+            </h4>
+
+            <span class="text-muted">
+                @{{ object.username }}
+            </span>
+
+            <span> - </span>
+
+            {% if object.userdetail.status == 'Available' %}
+                <span class="text-success">{{ object.userdetail.status }}</span>
+            {% else %}
+                <span class="text-danger">{{ object.userdetail.status }}</span>
+            {% endif %}
+
+        </div>
+
+        {% if object.userdetail.bio %}
+        <div class="mt-2 mb-2">
+
+            <span class="user-bio">
+                {{ object.userdetail.bio }}
+            </span>
+
+        </div>
+        {% endif %}
+
+        <div {% if not object.userdetail.bio %} class="mt-2" {% endif %}>
+            <span class="user-info">
+                <img src="{% static 'main/images/icons/date_joined.png' %}" class="mt-n1 mr-2" width="20px">Joined on {{ object.date_joined|date:"F Y" }}
+
+                {% if object.userdetail.date_of_birth %}
+                    <span class="ml-2 mr-2">|</span>
+                    <img src="{% static 'main/images/icons/year_of_birth.png' %}" class="mt-n1 mr-2" width="20px">Born in {{ object.userdetail.date_of_birth|date:"Y" }}
+                {% endif %}
+
+                {% if object.userdetail.blood_group %}
+                    <span class="ml-2 mr-2">|</span>
+                    <img src="{% static 'main/images/icons/blood_drop.png' %}" class="mt-n1 mr-2" width="18px">Blood Group {{ object.userdetail.blood_group }}
+                {% endif %}
+                
+            </span>
+        </div>
+
+        <div>
+            <span class="user-address">
+
+                {% if object.userconfig.show_address_on_profile %}
+                    <img src="{% static 'main/images/icons/location.png' %}" class="mt-n1 mr-2" width="20px">{{ object.userdetail.address }}
+                    <span class="ml-2 mr-2">|</span>
+                {% endif %}
+
+                {% if object.userconfig.show_district_on_profile %}   
+                    <img src="{% static 'main/images/icons/district.png' %}" class="mt-n1 mr-2" width="20px">{{ object.userdetail.district }}
+                {% endif %}
+
+            </span>
+        </div>
+
+        <div class="mt-2">
+            <span class="user-contact">
+
+                {% if object.userconfig.show_mobile_number_on_profile %}
+                    <a href="tel:{{ object.userdetail.mobile_number }}" class="mr-2 phone-icon" data-toggle="tooltip" title="Mobile - {{ object.userdetail.mobile_number }}"><img src="{% static 'main/images/icons/phone_color.png' %}" width="18px"></a>
+                {% endif %}
+
+                {% if object.userconfig.show_email_address_on_profile %}
+                    <a href="mailto:{{ object.email }}" class="mr-2 email-icon" data-toggle="tooltip" title="Email - {{ object.email }}"><img src="{% static 'main/images/icons/mail_color.png' %}" width="18px"></a>
+                {% endif %}
+
+            </span>
+
+            <span class="user-social-url">
+                {% if object.usersocialurl.website %}
+                    <a href="{{ object.usersocialurl.website }}" class="mr-2 website-icon" target="_blank" data-toggle="tooltip" title="Website - {{ object.usersocialurl.website }}"><img src="{% static 'main/images/icons/link_color.png' %}" width="16px"></a>
+                {% endif %}
+
+                {% if object.usersocialurl.facebook %}
+                    <a href="https://facebook.com/{{ object.usersocialurl.facebook }}" class="mr-2 facebook-icon" target="_blank" data-toggle="tooltip" title="Facebook - @{{ object.usersocialurl.facebook }}"><img src="{% static 'main/images/icons/facebook_color.png' %}" width="18px"></a>
+                {% endif %}
+
+                {% if object.usersocialurl.twitter %}
+                    <a href="https://twitter.com/{{ object.usersocialurl.twitter }}" class="mr-2 twitter-icon" target="_blank" data-toggle="tooltip" title="Twitter - @{{ object.usersocialurl.twitter }}"><img src="{% static 'main/images/icons/twitter_color.png' %}" width="20px"></a>
+                {% endif %}
+
+                {% if object.usersocialurl.instagram %}
+                    <a href="https://instagram.com/{{ object.usersocialurl.instagram }}" class="instagram-icon" target="_blank" data-toggle="tooltip" title="Instagram - @{{ object.usersocialurl.instagram }}"><img src="{% static 'main/images/icons/instagram_color.png' %}" width="16px"></a>
+                {% endif %}
+
+            </span>
+        </div>
+
+        {% if request.user.is_authenticated %}
+        {% if request.user.username == username %}
+        <div class="mt-4 mb-2">
+            <span class="mr-1">
+                <a href="#" class="btn btn-custom" data-toggle="modal" data-target="#editProfile"><img src="{% static 'main/images/icons/edit_profile.png' %}" width="20px"></a>
+            </span>
+
+            <span>
+                <a href="{% url 'settings' 'profile' %}" class="btn btn-custom" data-tooltip="Settings" data-tooltip-location="bottom"><img src="{% static 'main/images/icons/settings.png' %}" width="20px"></a>
+            </span>
+
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+
+</div>
+
+
+<div class="container user-content-section mt-5">
+    <div class="row">
+        <div class="col-12 col-lg-6 activity-section">
+            <h4 class="text-center"><b>Activities</b></h4><hr>
+
+            <div class="not-found-section mt-5 mb-5 text-center text-muted">
+                <div class="mt-5 mb-5 py-5">
+                    <div><img src="{% static 'main/images/icons/not_found.png' %}" width="64px"></div>
+                    <div class="mt-1"><span>No activities found</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 col-lg-6 personal-section">
+            <h4 class="text-center"><b>Rewards</b></h4><hr>
+
+            <div class="not-found-section mt-5 mb-5 text-center text-muted">
+                <div class="mt-5 mb-5 py-5">
+                    <div><img src="{% static 'main/images/icons/not_found.png' %}" width="64px"></div>
+                    <div class="mt-1"><span>No rewards found</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

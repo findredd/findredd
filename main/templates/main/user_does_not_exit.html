@@ -1,0 +1,17 @@
+{% extends 'main/index.html' %}
+{% load static %
+
+{% block title %}FindREDD | @{{ username }} - not found{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block main-content %}
+<div class="container-lg text-center py-5 mt-5">
+    <h1>Account for "@{{ username }}" doesn’t exist</h1>
+    <p>Try searching for another...</p>
+</div>
+{% endblock %}

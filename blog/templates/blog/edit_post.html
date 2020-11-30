@@ -1,0 +1,14 @@
+{% extends 'blog/create_post.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}FindREDD Blog | Edit post {% endblock %}
+
+{% block heading %}
+<h2 class="custom-head text-center mt-3 mb-2 mt-sm-4 mb-sm-3 mt-lg-5 mb-lg-2">Edit post</h2><br>
+{% endblock %}
+
+{% block post-button %}
+    <button type="submit" name="submit" class="btn btn-success btn-sm">Edit</button>
+    <a href="{% url 'blog-dashboard' %}" class="ml-1 btn btn-secondary btn-sm" onclick="return confirm('Changes are not going to save, are you sure to cancel it?')">Cancel</a>
+{% endblock %}

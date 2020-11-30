@@ -1,0 +1,38 @@
+{% extends 'main/settings_profile.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}FindREDD | Settings - Mobile {% endblock %}
+
+{% block navigation-bar-settings %}
+<span>
+    <a href="{% url 'settings' 'mobile' %}"><small><b>mobile</b></small></a>
+</span>
+{% endblock %}
+
+{% block sidebar-profile-div-active %} class="sidebar-item" {% endblock %}
+{% block sidebar-profile-link-active %} class="nav-link sidebar-link" href="{% url 'settings' 'profile' %}" {% endblock %}
+
+{% block sidebar-mobile-div %} class="sidebar-item-active" {% endblock %}
+{% block sidebar-mobile-link %} class="nav-link sidebar-link-active" {% endblock %}
+
+{% block user-form-section %}
+<h4><b>Mobile settings</b></h4><hr>
+
+<form method="POST" class="user-form settings-form">
+    {% csrf_token %}
+    <div class="user-form-field">
+        {{ form.mobile_number|as_crispy_field }}
+        <p class="mt-n2 text-muted user-form-field-para">
+            <span>Your mobile number will only appear in donors list but you may control it on appearing elsewhere through the option given below.</span><br>
+        </p>
+    </div>
+
+    <div class="user-form-field">
+        {{ form_MN.show_mobile_number_on_profile|as_crispy_field }}
+    </div>
+
+    <button type="submit" class="btn btn-success btn-sm">Update mobile</button>
+</form>
+
+{% endblock %}

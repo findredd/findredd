@@ -1,0 +1,69 @@
+{% extends 'blog/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}FindREDD Blog | Searched for - {{ request.GET.q }} {% endblock %}
+
+{% block style %}
+<style>
+
+    @media screen and (max-width: 992px) {
+        span.search-heading {
+            font-size: 40px;
+        }
+
+        .post-head {
+            font-size: 28px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        span.search-heading {
+            font-size: 36px;
+        }
+
+        .post-head {
+            font-size: 28px;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        li.nav-search-bar {
+            display: none;
+        }
+
+        div.container-search-bar {
+            display: block;
+            font-family: 'Roboto', sans-serif;
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        div.container-search-bar {
+            display: none;
+        }
+    }
+
+</style>
+{% endblock %}
+
+{% block post-section %}
+<div class="container text-center mt-3 mb-n4 mt-sm-4 mt-lg-5">
+    <div class="container-search-bar mt-5 mb-4">
+        <form method="GET" action="{% url 'blog-index' %}">
+            <input class="form-control mt-2 mr-sm-2" name="q" type="text" placeholder="Search topic or keywords" style="height: 32px;">
+            <button class="btn btn-dark btn-custom btn-sm mt-3" type="submit"><img src="{% static 'main/images/icons/search.png' %}" class="mt-n1 mr-2" width="14px">Search</button>
+        </form>
+    </div>
+
+    <span class="search-heading custom-head">Search results for - "{{ request.GET.q }}"</span>
+
+</div>
+{% endblock %}
+
+{% block post-heading %}
+{% endblock %}
+
+{% block no-post-section %}
+<span>Sorry, no search results are available</span><br>
+{% endblock %}

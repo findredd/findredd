@@ -1,0 +1,113 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+{% endblock %}
+
+{% block title %}FindREDD | Terms of service {% endblock %}
+
+{% block style %}
+<style>
+
+    .container-lg h1 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    .container-lg h2 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 24px;
+    }
+
+    .terms-of-service-content {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+    }
+    
+</style>
+{% endblock %}
+
+<!-- Terms Of Service Section -->
+{% block main-content %}
+<div class="container-lg py-5 terms-of-service-section">
+    <h1 class="text-center">Terms of service</h1>
+
+    <div class="mt-4 terms-of-service-content">
+        <p>We urge you not to make false registrations if you do not seriously wish to donate blood. It is a matter of life and death for those in need of blood in an emergency or otherwise.</p>
+
+        <ol type="1">
+            <li>
+                <h2>DESCRIPTION</h2>
+                <ol type="i">
+                    <li>This is a non-profit Organisation whose operation is to inform the people in need of blood about the donors in their     proximity and vice-versa. Our part ends on having shared the information.</li>
+                </ol>
+            </li>
+
+            <li>
+                <h2 class="mt-4">NOT A BLOOD BANK</h2>
+                <ol type="i">
+                    <li>FindRedd is neither a blood bank nor is it associated with any. We just help people in need of blood by providing them with information of donors in their local geographical area.</li>
+                    <li>We do not provide any medical assistance.</li>
+                </ol>
+            </li>
+
+            <li>
+                <h2 class="mt-4">GOAL</h2>
+                <ol type="i">
+                    <li>Our goal is to put technology to use of mankind by making an online blood management system.</li>
+                    <li>We do not sell contact details of potential donors to any third party or use it in any way for commercial gains.</li>
+                    <li>We do not arrange for blood. We only provide relevant information about potential donors to those in need of blood.</li>
+                </ol>
+            </li>
+
+            <li>
+                <h2 class="mt-4">FINDREDD SERVES ONLY AS A PLATFORM TO CONNECT DONORS AND RECEIVERS THROUGH SMART APP</h2>
+                <ol type="i">
+                    <li>The only facility we provide is by providing information through FindREDD application.</li>
+                    <li>We won’t be responsible for the direct contact made between Donors and Receivers nor are we responsible for the actions of the Donor before or after the contact is made.</li>
+                    <li>The Donors and Receivers are responsible for verifying the authenticity and correctness of the information provided by the other.</li>
+                    <li>FindREDD will not, to the extent permitted under applicable law, be responsible for any claims, disputes, suits, actions, losses, injury, damages or harm (including, but not limited to, loss of personal data, personal injury, or loss of life) caused to the Donor, the Receiver, and/or any third party due to any interaction between the Donor, Blood receiver, and/or any third party.</li>
+                </ol>
+            </li>
+
+            <li>
+                <h2 class="mt-4">NO ENDORSEMENTS OR PROMOTIONS</h2>
+                <ol type="i">
+                    <li> We do not promote any medicine,services,remedies, brand or treatment.</li>
+                </ol>
+            </li>
+
+            <li>
+                <h2 class="mt-4">TERMS AND CONDITIONS</h2>
+                <ol type="i">
+                    <li>FindRedd has the right to collect, store, process and share the information with respective donors and receivers.</li>
+                    <li>People registering on this site must understand that the information provided by them on the registration page is available to a person seeking for a particular blood group.</li>
+                    <li>We do not claim that potential donors are free from any disease, ailment, or bodily conditions preventing them from donating blood at the time when they are contacted for blood donation. It is completely on the individual looking for blood to verify these details from the donor.</li>
+                    <li>We do not guarantee that a potential donor will agree to donate blood whenever called upon to do so. It is entirely at the discretion of the individual whether or not to donate blood.</li>
+                    <li>We reserves right to inactivate member at any given time in case found wrong information given or misuse of service.</li>
+                    <li>The donor shall not be a frequent alcohol consumer.</li>
+                    <li>The organisation shall not be held responsible for ill acts or carelessness of doctors, donors, receivers or any other party involved in the process.</li>
+                </ol>
+            </li>
+
+            <li>
+                <h2 class="mt-4">WARNING</h2>
+                <ol type="i">
+                    <li>We don’t hold blood donation camps so kindly don’t fall victim to donating blood to wrong parties.</li>
+                    <li>We don’t charge any money in return for our services.</li>
+                    <li>The donor and receiver can meet only in hospitals or clinics so if any person asks you to meet anywhere else, go at your own risk.</li>
+                    <li>The donor must see patients ID, requisition form and medical documents online/offline before donating blood.</li>
+                </ol>
+            </li>
+        </ol>
+
+        <p class="mt-5">
+            FindREDD Trust<br>Last update: 30/08/2020
+        </p>
+
+    </div>
+</div>
+{% endblock %}

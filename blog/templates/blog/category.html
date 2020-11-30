@@ -1,0 +1,43 @@
+{% extends 'blog/index.html' %}
+{% load static %}
+
+{% block title %}FindREDD Blog | {{ category|capfirst }} Post {% endblock %}
+
+{% block post-section %}
+    {% if featured_post %}
+        <div class="jumbotron jumbotron-fluid featured-post-section">
+            <div class="container-lg">
+                <h1 class="custom-head">Featured Post</h1>
+                <div class="head-underline-black"></div><br><br>
+
+                <div class="row">
+                    {% for obj in featured_post %}
+                    
+                        <div class="col-12 col-md-6 mt-4">
+                            {% if obj.header %}
+                                <a href="{% url 'blog-post' obj.slug %}"><img src="{{ obj.header.url }}" class="img-fluid"></a>
+                            {% endif %}
+                            <p class="mt-2">
+                                <span class="text-muted">Tags: </span>
+                
+                                    {% for tag in obj.tags %}
+                                        <span><a href="{% url 'blog-category' tag %}" class="text-muted">{{ tag }},</a></span>
+                                    {% endfor %}
+                                    
+                                <br>
+                            </p>
+
+                            <h2 class="mt-3"><a href="{% url 'blog-post' obj.slug %}" class="post-head">{{ obj.title }}</a></h2>
+                            <p class="text-muted mt-3">
+                                <span><a href="{% url 'profile' obj.author %}"><img src="{{ obj.author.userpicture.profile_picture.url }}" width="40px" class="rounded-circle"><span class="ml-2">{{ obj.author.userdetail.name }}</span></a> on {{ obj.posted_date|date:"l, d F, Y" }}</span>
+                            </p>
+                        </div>                
+                
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

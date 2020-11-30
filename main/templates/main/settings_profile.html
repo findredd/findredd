@@ -1,0 +1,356 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/form.css' %}">
+
+    {% if temp %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.css" integrity="sha512-AuLN6bHjJzqZ+Iw48+GdQPp5uKBdPX6+zWV37ju9zw7XIrevIX01RsLtpTU/zCoQcKrQRPe/EpwDpZiv7OUYMA==" crossorigin="anonymous" />
+    {% endif %}
+{% endblock %}
+
+{% block title %}FindREDD | Settings - Profile {% endblock %}
+
+{% block style %}
+<style>
+
+    .navigation-bar a {
+        color: #212529;
+        transition: 0.2s;;
+    }
+
+    .navigation-bar a:hover {
+        color: #212529;
+        opacity: 0.8;
+        transition: 0.2s;
+    }
+
+    .sidebar {
+        border: 1px solid rgb(216, 216, 216);
+        border-radius: 5px;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 5px;
+        padding-bottom: 0;
+        font-size: 14px;
+    }
+
+    .sidebar ul {
+        width: 100%;
+    }
+
+    .sidebar-text, .sidebar-item {
+        width: 100%;
+        background: white;
+        border-bottom: 1px solid rgb(216, 216, 216); 
+    }
+
+    .sidebar-item-last {
+        width: 100%;
+    }
+
+    .sidebar-text {
+        text-align: center;
+    }
+
+    .sidebar-link {
+        color: #212529;
+        margin-left: 20px;
+    }
+
+    .sidebar-link:hover {
+        color: white;
+        background: #b91816;
+        border-left: 20px solid #b91816;
+        transition: 0.2s;
+        margin-left: 0;
+        opacity: 1;
+    }
+
+    .sidebar-item-active {
+        width: 100%;
+        border-bottom: 1px solid rgb(216, 216, 216); 
+        background: #b91816;
+    }
+
+    .sidebar-link-active {
+        color: #b91816;
+        background: rgb(245, 245, 245);
+        border-left: 17px solid rgb(245, 245, 245);
+        transition: 0.2s;
+        opacity: 1;
+        margin-left: 3px;
+    }
+
+    .sidebar-link-active:hover {
+        color: #b91816;
+        cursor: unset;
+        opacity: 1;
+    }
+
+    /* Sidebar Last Item Active Class */
+    .sidebar-item-last-active {
+        width: 100%;
+        background: #b91816
+    }
+
+    .settings-form {
+        max-width: 544px;
+    }
+
+    .user-form-field-para {
+        font-size: 12px;
+    }
+
+    .form-check-label {
+        margin-top: 3px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .navigation-bar {
+            display: none;
+        }
+    }
+
+{% block extra-style %}
+{% if temp %}
+.modal-header {
+    background: #212529;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.modal-header .close {
+    color: white;
+    
+}
+
+.modal-body {
+    font-size: 14px;
+}
+
+.modal-footer {
+    background: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+{% endif %}
+{% endblock %}
+
+</style>
+{% endblock %}
+
+{% block script-top %}
+    <script src="{% static 'main/form.js' %}"></script>
+{% endblock %}
+
+{% block main-content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="container-fluid alert {{ message.tags }}">
+            <div class="container message">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span id="id_message">{{ message }}</span>
+                {% if 'error' in message.tags %}
+                <script>
+                    errorList();
+                </script>
+                {% else %}
+                — <a href="{% url 'profile' object.username %}">check profile</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% if temp %}
+<!-- MODAL TO CROP THE IMAGE -->
+<div class="modal fade" id="modalCrop">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <span class="modal-title"><b>Crop picture</b></span>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="container">
+                    <img src="" id="image" style="max-width: 100%;">
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="btn-group mr-auto" role="group">
+                    <button type="button" class="btn btn-default btn-sm js-zoom-in">
+                        <img src="{% static 'main/images/icons/zoom_in.png' %}" width="20px">
+                    </button>
+
+                    <button type="button" class="btn btn-default btn-sm js-zoom-out">
+                        <img src="{% static 'main/images/icons/zoom_out.png' %}" width="20px">
+                    </button>
+                </div>
+
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-sm js-crop-and-upload">Upload</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="container-lg settings-section">
+    <div class="row navigation-bar mt-3">
+        <div class="col-md-6 text-left">
+            <span>
+                <a href="{% url 'settings' 'profile' %}"><small>Settings</small></a>
+            </span>
+            <span><small> > </small></span>
+
+            {% block navigation-bar-settings %}
+            <span>
+                <a href="{% url 'settings' 'profile' %}"><small><b>Profile</b></small></a>
+            </span>
+            {% endblock %}
+
+        </div>
+    
+        <div class="col-md-6 text-right">
+            <span>
+                <small>
+                    Last login: {{ object.last_login|date:"d/m/Y h:i A" }}
+                </small>
+            </span>
+        </div>
+
+    </div>
+
+    <div class="row mt-3 mb-5">
+        <div class="col-lg-3 sidebar-section">
+
+            <nav class="sidebar">
+                <!-- Links -->
+                <ul class="navbar-nav sidebar-side">
+                    <div class="sidebar-text">
+                        <span class="navbar-text"><b>@{{ object.username }}</b></span>
+                    </div>
+
+                    <div {% block sidebar-profile-div-active %} class="sidebar-item-active" {% endblock %}>
+                        <li class="nav-item"><a {% block sidebar-profile-link-active %} class="nav-link sidebar-link-active" {% endblock %}>Profile</a></li>
+                    </div>
+
+                    <div {% block sidebar-account-div %} class="sidebar-item" {% endblock %}>
+                        <li class="nav-item"><a {% block sidebar-account-link %} class="nav-link sidebar-link" href="{% url 'settings' 'account' %}" {% endblock %}>Account</a></li>
+                    </div>
+
+                    <div {% block sidebar-mobile-div %} class="sidebar-item" {% endblock %}>
+                        <li class="nav-item"><a {% block sidebar-mobile-link %} class="nav-link sidebar-link" href="{% url 'settings' 'mobile' %}" {% endblock %}>Mobile</a></li>
+                    </div>
+
+                    <div {% block sidebar-email-div %} class="sidebar-item" {% endblock %}>
+                        <li class="nav-item"><a {% block sidebar-email-link %} class="nav-link sidebar-link" href="{% url 'settings' 'email' %}" {% endblock %}>Email</a></li>
+                    </div>
+
+                    <div {% block sidebar-location-div %} class="sidebar-item" {% endblock %}>
+                        <li class="nav-item"><a {% block sidebar-location-link %} class="nav-link sidebar-link" href="{% url 'settings' 'location' %}" {% endblock %}>Location</a></li>
+                    </div>
+
+                    <div {% block sidebar-social-div %} class="sidebar-item" {% endblock %}>
+                        <li class="nav-item"><a {% block sidebar-social-link %} class="nav-link sidebar-link" href="{% url 'settings' 'social' %}" {% endblock %}>Social</a></li>
+                    </div>
+
+                    <div {% block sidebar-security-div %} class="sidebar-item-last" {% endblock %}>
+                        <li class="nav-item"><a {% block sidebar-security-link %} class="nav-link sidebar-link" href="{% url 'settings' 'security' %}" {% endblock %}>Security</a></li>
+                    </div>
+                    
+                </ul>
+              
+            </nav>
+
+        </div>
+
+        <div class="col-lg-9 mt-4 mt-lg-0 text-left">
+            {% block user-form-section %}
+            <h4><b>Profile settings</b></h4><hr>
+
+            <div class="row">
+
+                <div class="col-lg-4 mt-2 mt-lg-0">
+                    <form method="POST" enctype="multipart/form-data" class="user-form settings-form" id="id_user_form">
+                        {% csrf_token %}
+
+                        <div class="user-form-field">
+                            <a href="{{ object.userpicture.profile_picture.url }}">
+                                <img src="{{ object.userpicture.profile_picture.url }}" width="120px">
+                            </a>
+                        </div>
+
+                        <div class="user-form-field mt-2">
+                            {{ form_PP|crispy }}
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-lg-8 mt-2 mt-lg-0">
+                    <form method="POST" class="user-form settings-form">
+                        {% csrf_token %}
+
+                        <div class="user-form-field">
+                            {{ form.name|as_crispy_field }}
+                            <p class="mt-n2 text-muted user-form-field-para">Your profile will appear in donors list depending on your status.</p>
+                        </div>
+
+                        <div class="user-form-field">
+                            {{ form.status|as_crispy_field }}
+                            <p class="mt-n2 text-muted user-form-field-para">Based on your status, FindREDD will include your profile in the donors list. You can set it to - 'Not Available' in case you don't want your profile to appear in the donors list.</p>
+                        </div>
+
+                        <div class="user-form-field">
+                            {{ form.bio|as_crispy_field }}
+                            <p class="mt-n2 text-muted user-form-field-para">Tell others a little bit about yourself.</p>
+                        </div>
+
+                        <div class="user-form-field">
+                            {{ form.date_of_birth|as_crispy_field }}
+                            <script>
+                                typeDate();
+                            </script>
+                            <p class="mt-n2 text-muted user-form-field-para">You must be 18+ years of age for becoming a donor. FindREDD shows only your birth year on your profile.</p>
+                        </div>
+                        
+                        <div class="user-form-field">
+                            {{ form.blood_group|as_crispy_field }}
+                            <p class="mt-n2 text-muted user-form-field-para">You must set your blood group.</p>
+                        </div>
+
+                        <p class="text-muted user-form-field-para">
+                            By filling out the above mentioned fields, you are giving us the consent for sharing this data wherever your user profile appears. Please go through our <a href="{% url 'privacy_policy' %}" target="_blank">privacy policy</a> in order to understand how we will be using this data.
+                        </p>
+                        <button type="submit" class="btn btn-success btn-sm">Update profile</button>
+                    </form>
+                </div>
+            </div>
+            {% endblock %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block script-down %}
+{% if temp %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.js" integrity="sha512-giNJUOlLO0dY67uM6egCyoEHV/pBZ048SNOoPH4d6zJNnPcrRkZcxpo3gsNnsy+MI8hjKk/NRAOTFVE/u0HtCQ==" crossorigin="anonymous"></script>
+<script src="{% static 'main/jquery-cropper.js' %}"></script>
+<script src="{% static 'main/cropping.js' %}"></script>
+{% endif %}
+{% endblock %}

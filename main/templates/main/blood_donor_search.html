@@ -1,0 +1,129 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/form.css' %}">
+{% endblock %}
+
+{% block title %}FindREDD | Blood donor search {% endblock %}
+
+{% block style %}
+<style>
+
+    .blood-donor-search-section h1 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+    }
+
+    .blood-donor-search-section p {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+    }
+
+    .blood-donor-search-section th {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        background: #212529;
+        color: white;
+    }
+
+    .blood-donor-search-section td {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+    }
+
+    .not-found-section {
+        border: 1px solid rgb(216, 216, 216);
+        border-radius: 5px;
+    }
+
+    .fa-frown {
+        font-size: 64px;
+    }
+
+</style>
+{% endblock %}
+
+<!-- Blood Donor Search Section -->
+{% block main-content %}
+<div class="container blood-donor-search-section py-5">
+    <h1 class="text-center">Blood Donors List</h1>
+    <p class="text-center">Showing result for - District: <b>"{{ district }}"</b> and Blood group: <b>"{{ blood_group }}"</b></p>
+
+    {% if page_obj %}
+    <div class="table-responsive-sm mt-5">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Donor</th>
+                    <th>Address</th>
+                    <th>Mobile</th>
+                </tr>
+            </thead>
+
+        {% for obj in page_obj %}
+            <tbody>
+                <t>
+                    <td><a href="{% url 'index' %}{{ obj.username }}"><img src="{{ obj.userpicture.profile_picture.url }}" class="rounded-circle mr-2" width="30px">{{ obj.userdetail.name }}</a></td>
+
+                    {% if user.is_authenticated %}
+                        <td>{{ obj.userdetail.address }}</td>
+                        <td><a href="tel:{{ obj.userdetail.mobile_number }}">{{ obj.userdetail.mobile_number }}</a></td>
+                    {% else %}
+                        <td><a href="{% url 'signin' %}?next={{ request.get_full_path|urlencode }}">Show address</a></td>
+                        <td><a href="{% url 'signin' %}?next={{ request.get_full_path|urlencode }}">Show mobile number</a></td>
+                    {% endif %}
+                </tr>
+            </tbody>
+        {% endfor %}
+
+        </table>
+    </div>
+
+    <div class="row dashboard-pagination mt-4 text-center">
+        <div class="col-12 text-muted">
+            <p style="font-weight: 400;"><span>Showing page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></p>
+        </div>
+    </div>
+
+    <div class="container text-center">
+        <ul class="pagination pagination-sm justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?{{ search_path }}&page=1">&laquo; First</a></li>
+                <li class="page-item"><a class="page-link" href="?{{ search_path }}&page={{ page_obj.previous_page_number }}">Previous</a></li>
+            {% endif %}
+    
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link" href="?{{ search_path }}&page={{ num }}">{{ num }}</a></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?{{ search_path }}&page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+    
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?{{ search_path }}&page={{ page_obj.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?{{ search_path }}&page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    {% else %}
+    <div class="not-found-section mt-5 text-center text-muted">
+        <div class="mt-5 mb-5 py-5">
+            <div>
+                <img src="{% static 'main/images/icons/not_found.png' %}" width="64px">
+            </div>
+
+            <div class="mt-1">
+                <span>No search result found</span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

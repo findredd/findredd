@@ -1,0 +1,188 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block meta %}
+<meta name="description" content="The FindREDD blog which provides update on organization on going things.">
+<meta name="keywords" content="FindREDD, blood, savelife, biet, jhansi">
+<meta name="author" content="The FindREDD Blog">
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+{% endblock %}
+
+{% block title %}FindREDD | Blog {% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block content-foooter-include %}
+    <div class="top-nav">
+        <div class="top-nav-wordmark">
+            <a href="{% url 'index' %}"><img src="{% static 'main/images/findredd_wordmark_white_120x30.png' %}"></a>
+        </div>
+    </div>
+
+    <!-- Navbar Section -->
+    <nav class="navbar navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"><img src="{% static 'main/images/icons/menu.png' %}" class="ml-n1" width="30px"></button>
+
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item ml-2 ml-lg-3"><a href="{% url 'blog-index' %}" class="nav-link">The FindREDD Blog</a></li>
+            </ul>
+
+            <div class="ml-lg-auto mr-lg-3">
+                <ul class="navbar-nav">
+                    <li class="nav-item ml-2 ml-lg-3 nav-search-bar">
+                        <form class="form-inline" method="GET" action="{% url 'blog-index' %}">
+                            <input class="form-control mt-2 mt-lg-0 mr-sm-2" name="q" type="text" placeholder="Search topic or keywords" style="height: 32px;">
+                            <button class="btn btn-dark btn-custom btn-sm mt-2 mt-lg-0" type="submit"><img src="{% static 'main/images/icons/search.png' %}" class="mt-n1" width="16px"></button>
+                        </form>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                    
+                        {% if user.userconfig.blog %}
+                        <li class="nav-item mt-3 mt-lg-0 ml-2 ml-lg-3"><a href="{% url 'blog-create-post' %}" class="btn btn-outline-primary btn-sm">New post</a></li>
+                        {% endif %}
+
+                        <li class="nav-item mt-2 mt-lg-0 mb-2 mb-lg-0 mt-lg-n2 mb-lg-n2 ml-2 ml-lg-3 dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><img src="{{ user.userpicture.profile_picture.url }}" class="rounded-circle" width="30px"></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <span class="dropdown-item-text">Signed in as<br><b>@{{ user.username }}</b></span>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'profile' user.username %}"><img src="{% static 'main/images/icons/profile.png' %}" class="mr-2 mt-n1" width="18px">Profile</a>
+    
+                                {% if user.userconfig.blog %}
+                                    <a class="dropdown-item" href="{% url 'blog-dashboard' %}"><img src="{% static 'main/images/icons/blog.png' %}" class="mr-2 mt-n1" width="18px">Blog</a>
+                                {% endif %}
+    
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'settings' 'profile' %}"><img src="{% static 'main/images/icons/settings.png' %}" class="mr-2 mt-n1" width="18px">Settings</a>
+                                <a class="dropdown-item" href="{% url 'signout' %}"><img src="{% static 'main/images/icons/sign_out.png' %}" class="mr-2 mt-n1" width="16px">Sign out</a>
+                            </div>
+                        </li>            
+                    {% endif %}
+                </ul>
+            </div>    
+
+        </div>
+                
+    </nav>
+
+{% block main-content %}
+{% block post-section %}
+{% block top-section %}
+    <div class="container top-section">
+        <div class="top-section-block">
+            <h1 class="top-section-head custom-head pl-3 text-left"><span>The<br>FindREDD<br>Blog</span></h1>
+        </div>
+    </div>
+{% endblock %}
+
+    <div class="jumbotron jumbotron-fluid mid-section">
+        <div class="container">
+            <h1 class="custom-head"><span>Categories</span></h1>
+            <div class="head-underline-white"></div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <a href="{% url 'blog-index' %}" class="btn btn-outline-dark ml-2 ml-md-0 mt-3">All</a>
+                    <a href="{% url 'blog-category' 'health' %}" class="btn btn-outline-dark mt-3 ml-2 ml-md-3">Health</a>
+                    <a href="{% url 'blog-category' 'engineering' %}" class="btn btn-outline-dark mt-3 ml-2 ml-md-3">Engineering</a>
+                    <a href="{% url 'blog-category' 'foundation' %}" class="btn btn-outline-dark mt-3 ml-2 ml-md-3">Foundation</a>
+                    <a href="{% url 'blog-category' 'campaign' %}" class="btn btn-outline-dark mt-3 ml-2 ml-md-3">Campaign</a>
+                    <a href="{% url 'blog-category' 'safety' %}" class="btn btn-outline-dark mt-3 ml-2 ml-md-3">Safety</a>
+                    <a href="{% url 'blog-category' 'policy' %}" class="btn btn-outline-dark mt-3 ml-2 ml-md-3">Policy</a>
+                    <a href="{% url 'blog-category' 'partnership' %}" class="btn btn-outline-dark mt-3 ml-2 ml-md-3">Partnership</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+    <div class="container-lg post-section mt-5 mb-5 pt-3 pb-4">
+        {% block post-heading %}
+
+            {% if category is none %}
+                <h1 class="custom-head">All Posts</h1>
+            {% else %}
+                <h1 class="custom-head">{{ category|capfirst }} Post</h1>
+            {% endif %}
+
+            <div class="head-underline-black mb-5"></div>
+        {% endblock %}
+
+        {% if page_obj %}
+        {% for obj in page_obj %}
+        <div class="row">
+            <div class="col-12">
+                <h1><a href="{% url 'blog-post' obj.slug %}" class="post-head">{{ obj.title }}</a></h1>
+                <p class="text-muted pb-3">
+                    
+                    <span class="text-muted">Tags: </span>
+
+                    {% for tag in obj.tags %}
+                        <span><a href="{% url 'blog-category' tag %}" class="text-muted">{{ tag }},</a></span>
+                    {% endfor %}<br>
+
+                    <span>by <a href="{% url 'profile' obj.author %}">{{ obj.author.userdetail.name }}</a> on {{ obj.posted_date|date:"l, d F, Y" }}</span>
+
+                </p><hr class="pb-2">
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="row mt-4 mb-n2">
+            <div class="col-12 text-center text-muted">
+                <p><span>Showing page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></p>
+            </div>
+        </div>
+
+        <ul class="pagination pagination-sm justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page=1">&laquo; First</a></li>
+                <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a></li>
+            {% endif %}
+    
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ num }}">{{ num }}</a></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+    
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
+            {% endif %}
+        </ul>
+        
+        {% else %}
+        <div class="not-found-section text-center text-muted">
+            <div class="mt-5 mb-5 py-5">
+
+                <div><img src="{% static 'main/images/icons/not_found.png' %}" width="64px"></div>
+
+                {% block no-post-section %}
+
+                {% if category is none %}
+                    <div class="mt-1"><span>No post available yet!</span></div>
+                {% else %}
+                    <div class="mt-1"><span>No "{{ category|capfirst }} Post" available yet!</span></div>
+                {% endif %}
+
+                {% endblock %}
+
+            </div>
+        </div>
+        {% endif %}
+        
+    </div>
+
+{% endblock %}
+{% endblock %}

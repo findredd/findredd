@@ -1,0 +1,95 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+{% endblock %}
+
+{% block title %}FindREDD | About us {% endblock %}
+
+{% block style %}
+<style>
+
+    .container-lg h1 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    .container-lg h2 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 20px;
+    }
+
+    .about-us-content h2 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 24px;
+        text-align: center;
+    }
+
+</style>
+{% endblock %}
+
+<!-- About Us Section -->
+{% block main-content %}
+<div class="container-lg py-5 about-us-section">
+    <h1 class="text-center">About us</h1>
+    <h2 class="text-center">We are glad to have you here and here are a few things about us that we would love to share with you.</h2>
+
+    <div class="about-us-content mt-5">
+        <div>
+            <h2>What is FindREDD all about?</h2>
+            <p>Findredd is an innovative approach to address global health. We provide immediate access to blood donors all over India, 24/7. Findredd is working in partnership with several   organizations that work as a network and respond to disasters or emergency situations in an efficient manner.</p>
+        </div>
+        
+        <div class="mt-4">
+            <h2>What we do?</h2>
+            <p>The ultimate goal of our organisation is to provide an easy-to-use, easy-to-access, efficient, and reliable way to get life-saving blood, free of cost. Findredd works with Online Management System to connect blood donors and recipients through our Website or our mobile application. </p>
+        </div>
+
+        <div class="mt-4">
+            <h2>How it works?</h2>
+            <p>Our automated system works efficiently whenever someone needs to search for blood. Simply Search and get in touch with a blood donor, either on the website itself or by downloading our Android app. Instead of having to search all over for a blood donor in an emergency situation, you can Call our Helpline numbers and get direct help.</p>
+        </div>
+
+        <div class="mt-4">
+            <h2>Our Origin</h2>
+            <p>FINDREDD was initially named BIETian blood bank and was formed in December 2019 by some students of BIET Jhansi. In it’s earlier days, the organisation worked manually and we succeeded in convincing many people to donate blood. The organisation has now been registered under the name FINDREDD as we aim to expand its scope of service. </p>
+        </div>
+
+        <div class="mt-4">
+            <h2>Our Aim</h2>
+            <p>We wanted to use this world of science, technology and advancements for saving lives and with this objective in mind, we decided to give our organisation a platform and so here we are.</p>
+        </div>
+
+        <div class="mt-4">
+            <h2>Services are absolutely free</h2>
+            <p>Our services are absolutely free. This organisation is a platform for voluntary service and hence no give and take of money is allowed. </p>
+        </div>
+
+        <div class="mt-4">
+            <h2>Our Partners</h2>
+            <p>Our only motive is to help save lives and hence we feel extremely honoured to have a connection with people who have a similar motive. Our partners are - 
+                <ol type="1">
+                    <li>Tri - City Blood And Medical Support</li>
+                    <li>Wings - Jeevan Ki Ek Nai Udaan</li>
+                    <li>Yuva Bharat Yuva Sath Trust</li>
+                    <li>Sewa - Shakti Education and Welfare Association</li>
+                    <li>Binplus Technologies Pvt Ltd</li>
+                    <li>Cognito</li>
+                    <li>Bloodconnect Foundation</li>
+                </ol>
+                We look forward to enlisting support of more number of people and organisations.
+            </p>
+        </div>
+
+        <div class="text-center mt-5">
+            <h2>“Next to creating a life, the finest thing a man can do is save one.”<br>~ Abraham Lincoln</h2>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

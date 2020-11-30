@@ -1,0 +1,49 @@
+{% extends 'main/settings_profile.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}FindREDD | Settings - Location {% endblock %}
+
+{% block navigation-bar-settings %}
+<span>
+    <a href="{% url 'settings' 'location' %}"><small><b>Location</b></small></a>
+</span>
+{% endblock %}
+
+{% block sidebar-profile-div-active %} class="sidebar-item" {% endblock %}
+{% block sidebar-profile-link-active %} class="nav-link sidebar-link" href="{% url 'settings' 'profile' %}" {% endblock %}
+
+{% block sidebar-location-div %} class="sidebar-item-active" {% endblock %}
+{% block sidebar-location-link %} class="nav-link sidebar-link-active" {% endblock %}
+
+{% block user-form-section %}
+<h4><b>Location settings</b></h4><hr>
+
+<form method="POST" class="user-form settings-form">
+    {% csrf_token %}
+    <div class="user-form-field">
+        {{ form.address|as_crispy_field }}
+        <p class="mt-n2 text-muted user-form-field-para">
+            <span>Your address will appear in the donors list but in case you want it to appear on the profile, you may select the option given at the bottom of the page.</span>
+        </p>
+    </div>
+
+    <div class="user-form-field">
+        {{ form.district|as_crispy_field }}
+        <p class="mt-n2 text-muted user-form-field-para">
+            <span>FindREDD shows your profile in the donors list based on the district you have selected. If you want it to be visible on your profile then you may select the option given at the bottom of the page.</span>
+        </p>
+    </div>
+
+    <div class="user-form-field">
+        {{ form_LN.show_address_on_profile|as_crispy_field }}
+    </div>
+
+    <div class="user-form-field mt-n3">
+        {{ form_LN.show_district_on_profile|as_crispy_field }}
+    </div>
+
+    <button type="submit" class="btn btn-success btn-sm">Update location</button>
+</form>
+
+{% endblock %}

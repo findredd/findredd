@@ -1,0 +1,98 @@
+{% extends 'main/settings_profile.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}FindREDD | Settings - Account {% endblock %}
+
+{% block extra-style %}
+.modal-header {
+    background: #212529;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.modal-header .close {
+    color: white;
+}
+
+.modal-body {
+    font-size: 14px;
+}
+
+.modal-footer {
+    background: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+{% endblock %}
+
+{% block navigation-bar-settings %}
+<span>
+    <a href="{% url 'settings' 'account' %}"><small><b>Account</b></small></a>
+</span>
+{% endblock %}
+
+{% block sidebar-profile-div-active %} class="sidebar-item" {% endblock %}
+{% block sidebar-profile-link-active %} class="nav-link sidebar-link" href="{% url 'settings' 'profile' %}" {% endblock %}
+
+{% block sidebar-account-div %} class="sidebar-item-active" {% endblock %}
+{% block sidebar-account-link %} class="nav-link sidebar-link-active" {% endblock %}
+
+{% block user-form-section %}
+<!-- Account Deactivation Section -->
+<div class="modal fade" id="accountDeactivate">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+  
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <span class="modal-title"><b>Account deactivation</b></span>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+    
+            <!-- User Edit Profile Form -->
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p>To deactivate your account, please enter your password for verification:</p>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="user-form-field">
+                            {{ form_AD.password|as_crispy_field }}
+                        </div>
+                </div>
+    
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-sm">Procced</button>
+                    </form>
+                </div>
+
+        </div>
+    </div>
+</div>
+
+<h4><b>Account settings</b></h4><hr>
+
+<form method="POST" class="user-form settings-form">
+    {% csrf_token %}
+    <div class="user-form-field">
+        {{ form.username|as_crispy_field }}
+        <p class="mt-n2 text-muted user-form-field-para">
+            <span>Username must be unique and can contain Letters, digits and @/./+/-/_ only.</span><br>
+            <span class="mt-2 mt-md-0">If you change your username, then you will required to use new username to login into FindREDD.</span>
+        </p>
+    </div>
+    <button type="submit" class="btn btn-success btn-sm">Change username</button>
+</form>
+
+
+<h4 class="text-danger mt-5"><b>Deactivate account</b></h4><hr>
+<div class="user-form-field" style="max-width: 580px;">
+    <p class="text-muted user-form-field-para">
+        <span>If you deactivate your account, you have only 30 days to recover it by mailing us at: <a href="mailto:findredd@outlook.com">findredd@outlook.com</a>, Your display name, @username, and public profile will no longer be viewable on FindREDD.</span>
+    </p>
+</div>
+<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#accountDeactivate">Deactivate account</button>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block icons %}{% endblock %}
+
+{% block title %}FindREDD | @{{ object.username }} - photo {% endblock %}
+
+{% block style %}
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    .photo-section {
+        height: 100%;
+    }
+
+    .close a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .dot {
+        height: 40px;
+        width: 40px;
+        background-color: black;
+        border-radius: 50%;
+    }
+
+    .dot span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .photo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container photo-section">
+    <div class="close mt-4">
+        <a href="{% url 'profile' object.username %}">
+            <div class="dot">
+                <span>
+                    &times;
+                </span>
+            </div>
+        </a>
+    </div>
+
+    <div class="photo">
+        <img src="{{ object.userpicture.profile_picture.url }}" class="rounded-circle" width="200px">
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,257 @@
+{% extends 'blog/index.html' %}
+{% load static %}
+
+{% block title %}FindREDD Blog | {{ blog_post.title }} {% endblock %}
+
+{% block style %}
+<style>
+
+    .share a {
+        color: black;
+        font-size: 14px;
+        transition: 0.2s;
+    }
+
+    .share a:hover {
+        opacity: 0.7;
+        transition: 0.2s;
+    }
+
+    .post h1 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+    }
+
+    /* .blog-post-content-section {
+        font-family: 'Quicksand', sans-serif;
+    } */
+
+    @media screen and (max-width: 992px) {
+        .cl-show {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        .cl-hide {
+            display: none;
+        }
+    }
+
+</style>
+{% endblock %}
+
+{% block script-top %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+
+// COPY TO CLIPBOARD
+// Attempts to use .execCommand('copy') on a created text field
+// Falls back to a selectable alert if not supported
+// Attempts to display status in Bootstrap tooltip
+// ------------------------------------------------------------------------------
+
+function copyToClipboard(text, el) {
+    var copyTest = document.queryCommandSupported('copy');
+    var elOriginalText = el.attr('data-original-title');
+
+    if (copyTest === true) {
+        var copyTextArea = document.createElement("textarea");
+        copyTextArea.value = text;
+        document.body.appendChild(copyTextArea);
+        copyTextArea.select();
+        try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'Copied!' : 'Whoops, not copied!';
+        el.attr('data-original-title', msg).tooltip('show');
+        } catch (err) {
+        console.log('Oops, unable to copy');
+        }
+        document.body.removeChild(copyTextArea);
+        el.attr('data-original-title', elOriginalText);
+    } else {
+        // Fallback if browser doesn't support .execCommand('copy')
+        window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
+    }
+}
+
+$(document).ready(function() {
+    // Initialize
+    // ---------------------------------------------------------------------
+
+    // Tooltips
+    // Requires Bootstrap 3 for functionality
+    $('.js-tooltip').tooltip();
+
+    // Copy to clipboard
+    // Grab any text in the attribute 'data-copy' and pass it to the 
+    // copy function
+    $('.js-copy').click(function() {
+        var text = $(this).attr('data-copy');
+        var el = $(this);
+        copyToClipboard(text, el);
+    });
+});
+
+</script>
+{% endblock %}
+
+
+{% block main-content %}
+<div class="container-lg blog-post-section">
+    <div class="row mt-5">
+        <div class="col-12 col-lg-3 text-left cl-show">
+            <div>
+                <a href="{% url 'profile' blog_post.author.username %}"><img src="{{ blog_post.author.userpicture.profile_picture.url }}" class="rounded-circle" style="width: 120px;" data-toggle="tooltip" title="Profile Picture"></a><br>
+            </div>
+            
+            <div class="mt-2">
+                <span class="h5"><b>
+                    {% if blog_post.author.userdetail.name %}
+                        {{ blog_post.author.userdetail.name }}
+
+                        {% if blog_post.author.userconfig.verified %}
+                            <img src="{% static 'main/images/icons/verified.png' %}" class="mt-n1" width="24px" data-toggle="tooltip" title="Verified">
+                        {% endif %}
+                        
+                    {% endif %}
+
+                    </b></span><br>
+                <p>
+                    <span><a href="{% url 'profile' blog_post.author.username %}">@{{ blog_post.author.username }}</a></span><br><br>
+                    <span>
+                        {% if blog_post.author.userdetail.bio %}
+                            {{ blog_post.author.userdetail.bio }}
+                            <hr width="75%" style="float: left; margin-top: -14px;">
+                        {% endif %}
+                    </span>
+                </p>
+                
+
+                {% if blog_post.author.id == user.id %}
+                
+                    <a href="{% url 'blog-edit-post' blog_post.slug %}" class="btn btn-success btn-sm"><img src="{% static 'main/images/icons/edit_post.png' %}" class="mt-n1 mr-1" width="16px">Edit</a>
+                    <a href="{% url 'blog-delete-post' blog_post.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this post?')"><img src="{% static 'main/images/icons/delete_post.png' %}" class="mt-n1 mr-1" width="16px">Delete</a>
+                
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div class="col-12 px-4 px-lg-3 col-lg-9 post">
+            {% if blog_post.header %}
+                <img src="{{ blog_post.header.url }}" class="img-fluid" width="800px"></a>
+            {% endif %}
+
+            <p class="mt-2">
+                <span class="text-muted">Tags: </span>
+
+                    {% for tag in blog_post.tags %}
+                        <span><a href="{% url 'blog-category' tag %}" class="text-muted">{{ tag }},</a></span>
+                    {% endfor %}
+                    
+                <br>
+            </p>
+
+            <h1>{{ blog_post.title }}</h1>
+            <p class="text-muted mt-3">
+                <a href="{% url 'profile' blog_post.author %}"><img src="{{ blog_post.author.userpicture.profile_picture.url }}" width="40px" class="rounded-circle"><span class="ml-2">{{ blog_post.author.userdetail.name }}</span></a><span> on {{ blog_post.posted_date|date:"l, d F, Y" }}</span><br class="cl-hide"><br class="cl-hide">                
+                
+                    <span class="share">
+                        <a href="https://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}" class="mr-4 ml-lg-4" target="_blank"><img src="{% static 'main/images/icons/facebook_black.png' %}" width="16px"></a>
+                        <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ blog_post.title }}" class="mr-4" target="_blank"><img src="{% static 'main/images/icons/twitter_black.png' %}" width="14px"></a>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" class="mr-4" target="_blank"><img src="{% static 'main/images/icons/linkedin_black.png' %}" width="16px"></a>
+                        <a type="button" class="js-tooltip js-copy" data-toggle="tooltip" data-placement="bottom" data-copy="{{ request.build_absolute_uri }}" title="Copy to clipboard"><img src="{% static 'main/images/icons/link_black.png' %}" width="14px"></a>
+                    </span>
+                
+            </p>
+
+            <div class="blog-post-content-section mt-4">
+                {{ blog_post.content|safe }}
+            </div>
+
+        </div>
+
+        
+    </div>
+</div><br><br><hr class="cl-hide">
+
+<div class="container mt-5 mb-5 post-section cl-hide text-center">
+    <a href="{% url 'profile' blog_post.author.username %}"><img src="{{ blog_post.author.userpicture.profile_picture.url }}" class="rounded-circle" style="width: 120px;" data-toggle="tooltip" title="Profile Picture"></a>
+
+    <div class="mt-2">    
+        <span class="h5">
+            <b>
+                {% if blog_post.author.userdetail.name %}
+                    {{ blog_post.author.userdetail.name }}
+
+                    {% if blog_post.author.userconfig.verified %}
+                        <img src="{% static 'main/images/icons/verified.png' %}" class="mt-n1" width="24px" data-toggle="tooltip" title="Verified">
+                    {% endif %}
+                    
+                {% endif %}
+        
+            </b>
+        </span>
+
+        <div>
+            <p>
+                <span><a href="{% url 'profile' blog_post.author.username %}">@{{ blog_post.author.username }}</a></span><br>
+                <div>
+                    <p>
+                        {% if blog_post.author.userdetail.bio %}
+                            {{ blog_post.author.userdetail.bio }}
+                        {% endif %}
+                    </p>
+                </div>
+            </p>
+
+            {% if blog_post.author.id == user.id %}
+                
+                <a href="{% url 'blog-edit-post' blog_post.slug %}" class="btn btn-success btn-sm"><img src="{% static 'main/images/icons/edit_post.png' %}" class="mt-n1 mr-1" width="16px">Edit</a>
+                <a href="{% url 'blog-delete-post' blog_post.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this post?')"><img src="{% static 'main/images/icons/delete_post.png' %}" class="mt-n1 mr-1" width="16px">Delete</a>
+                
+            {% endif %}
+        </div>
+    </div>
+
+</div><hr class="cl-hide">
+
+<div class="container share cl-hide mt-5 mb-5">
+    <div class="mt-4 text-center">
+        <a href="https://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}" class="mr-4 ml-lg-4" target="_blank"><img src="{% static 'main/images/icons/facebook_black.png' %}" width="16px"></a>
+        <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ blog_post.title }}" class="mr-4" target="_blank"><img src="{% static 'main/images/icons/twitter_black.png' %}" width="14px"></a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" class="mr-4" target="_blank"><img src="{% static 'main/images/icons/linkedin_black.png' %}" width="16px"></a>
+        <a type="button" class="js-tooltip js-copy" data-toggle="tooltip" data-placement="bottom" data-copy="{{ request.build_absolute_uri }}" title="Copy to clipboard"><img src="{% static 'main/images/icons/link_black.png' %}" width="14px"></a>
+    </div>
+</div>
+
+{% if related_post %}
+<div class="jumbotron jumbotron-fluid related-post-section" style="margin-bottom: 0;">
+    <div class="container px-4 px-lg-0">
+        <h1 class="mt-4 custom-head">Related Posts</h1>
+        <div class="head-underline-black"></div><br><br>
+
+        {% for obj in related_post %}
+        <div class="row">
+            <div class="col-12">
+                <h1><a href="{% url 'blog-post' obj.slug %}" class="post-head">{{ obj.title }}</a></h1>
+                <p class="text-muted pb-3">
+                    
+                    <span class="text-muted">Tags: </span>
+
+                    {% for tag in obj.tags %}
+                        <span><a href="{% url 'blog-category' tag %}" class="text-muted">{{ tag }},</a></span>
+                    {% endfor %}<br>
+
+                    <span>by <a href="{% url 'profile' obj.author %}">{{ obj.author.userdetail.name }}</a> on {{ obj.posted_date|date:"l, d F, Y" }}</span>
+
+                </p><hr class="pb-2">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

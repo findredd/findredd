@@ -1,0 +1,233 @@
+html {
+    scroll-behavior: smooth;
+}
+
+/* Top Nav*/
+.top-nav {
+    padding: 5px;
+    background: #b91816;
+}
+
+.top-nav-wordmark {
+    text-align: center;
+}
+
+.top-nav-wordmark img {
+    width: 80px;
+    transition: 0.2s;
+}
+
+.top-nav-wordmark img:hover {
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+/* Navbar Section */
+.navbar {
+    font-family: 'Ubuntu', sans-serif;
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.nav-link {
+    color: #212529;
+    transition: 0.2s;
+}
+
+.nav-link:hover {
+    color: #212529;
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+.dropdown-item, .dropdown-item-text {
+    color: #212529;
+    font-size: 16px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    transition: 0.4s;
+}
+
+.dropdown-menu a:hover {
+    background: white;
+    color: #212529;
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+/* Top Section */
+.top-section {
+    background: url("/static/blog/images/top-section-bg.jpg") 50% 0 no-repeat fixed;
+    color: white;
+    height: 500px;
+    padding: 100px 0 0 0;
+}
+
+.top-section-block {
+    max-width: 600px;
+}
+
+.top-section-head {
+    background-color: black;
+    padding: 8px;
+}
+
+/* Custom Class */
+.custom-head {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 38px;
+}
+
+.head-underline-white {
+    background: white;
+    border: 2px solid white;
+    border-radius: 15px;
+    margin-top: -6px;
+    width: 80px;
+    height: 5px;
+}
+
+.head-underline-black {
+    background: #212529;
+    border: 2px solid #212529;
+    border-radius: 15px;
+    margin-top: -6px;
+    width: 50px;
+    height: 5px;
+}
+
+.not-found-section {
+    border: 1px solid rgb(206, 204, 204);
+    border-radius: 5px;
+}
+
+.not-found-section span {
+    font-family: 'Roboto', sans-serif;
+}
+
+.fa-frown {
+    font-size: 64px;
+}
+
+.btn-custom {
+    background: #212529;
+    border: 1px solid #212529;
+    transition: 0.2s;
+}
+
+.btn-custom:hover {
+    background: #212529;
+    border: 1px solid #212529;
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+/* Mid Section */
+.mid-section {
+    background: black;
+    color: white;
+}
+
+.btn.btn-outline-dark {
+    border-color: white;
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
+    padding: 8px 25px;
+    color: white;
+}
+
+.btn.btn-outline-dark:hover {
+    border-color: white;
+    background: white;
+    color: #212529;
+}
+
+.btn.btn-outline-dark:active:hover {
+    background: white;
+    color: #212529;
+}
+
+/* Combined Here */
+.post-section, .blog-post-section, .featured-post-section, .related-post-section {
+    color: #212529;
+}
+
+.post-section p, .blog-post-section p, .featured-post-section p, .related-post-section p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.blog-post-section .h5 {
+    font-family: 'Roboto', sans-serif;
+}
+
+.blog-post-section .btn {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+.post-head {
+    color: #212529;
+    transition: 0.5s;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+.post-head:hover {
+    color: #212529;
+    text-decoration: none;
+    opacity: 0.6;
+    transition: 0.2s;
+}
+
+/* Featured Post Section */
+.featured-post-section {
+    background: #f6f8fa;
+}
+
+/* Blog Post Content Section */
+.blog-post-content-section {
+    font-size: 16px;
+}
+
+.blog-post-content-section li {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Related Post Section */
+.related-post-section {
+    background: #f6f8fa;
+}
+
+/* Footer Section */
+.footer {
+    background: #b91816;
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.footer-link{
+    color: white;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: white;
+    opacity: 0.8;
+    text-decoration: none;
+}
+
+.social a {
+    color: white;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.social a:hover {
+    opacity: 0.8;
+    transition: 0.2s;
+}

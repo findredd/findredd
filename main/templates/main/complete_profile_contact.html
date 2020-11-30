@@ -1,0 +1,90 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/form.css' %}">
+{% endblock %}
+
+{% block title %}FindREDD | Complete your profile - info {% endblock %}
+
+{% block style %}
+<style>
+    
+    .container-sm h1 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    @media screen and (max-width: 768px) {
+        h1 {
+            display: none;
+        }
+    }
+    
+</style>
+{% endblock %}
+
+{% block script-top %}
+    <script src="{% static 'main/form.js' %}"></script>
+{% endblock %}
+
+{% block main-content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="container-fluid alert {{ message.tags }}">
+            <div class="container message">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span id="id_message">{{ message }}</span>
+                {% if 'error' in message.tags %}
+                <script>
+                    errorList();
+                </script>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="container-sm user-form-section py-5">
+    <h1 class="text-center">Set up your profile contact</h1>
+    <p class="text-muted mt-n4 mt-md-n1 text-center" style="font-family: 'Roboto Mono', monospace;">Welcome @{{ request.user }}, complete profile step 2 of 2</p>
+
+    <div class="user-form">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="user-form-field">
+                {{ form_MN.mobile_number|as_crispy_field }}
+            </div>
+
+            <div class="user-form-field">
+                {{ form_LN.address|as_crispy_field }}
+            </div>
+
+            <div class="user-form-field">
+                {{ form_LN.district|as_crispy_field }}
+            </div>
+
+            <p class="user-form-field-para" style="line-height: 0.8rem;">
+                <small>
+                    <b>
+                        <span style="color: red;">*</span>All the fields on this page are mandatory and will appear in the donors list, and by filling them out, you're giving us consent to share this data wherever your user profile appears. 
+                    </b>
+                </small>
+            </p>
+
+            <div class="text-center text-md-left">
+                <a href="{% url 'complete_profile' 'info' %}" class="btn btn-outline-dark btn-sm">Back to profile info</a>
+                <button type="submit" name="submit" class="btn btn-success btn-sm ml-1">Save profile contact</button>
+            </div>
+        </form>
+    </div> 
+
+</div>
+
+{% endblock %}
+

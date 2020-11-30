@@ -1,0 +1,229 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+{% endblock %}
+
+{% block title %}FindREDD | Team {% endblock %}
+
+{% block style %}
+<style>
+
+    .container-lg h1 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    .container-lg .team-head-h2 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 20px;
+    }
+
+    .team-membar-name {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 24px;
+    }
+
+    .img-hover-zoom {
+        height: 250px;
+        width: 250px;
+        overflow: hidden;
+    }
+
+    .img-hover-zoom img {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        transition: transform .3s ease;
+    }
+
+    .img-hover-zoom:hover img {
+        transform: scale(1.4);
+    }
+
+</style>
+{% endblock %}
+
+<!-- Team Section -->
+{% block main-content %}
+
+<div class="container-lg team-section py-5">
+    <h1 class="text-center">Team</h1>
+    <h2 class="text-center team-head-h2">Meet our team</h2>
+
+    <div class="row mt-5">
+        <div class="col-md-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/divyanshu_mathur_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Divyanshu Mathur</h2>
+            <p class="mt-n2">President</p>
+        </div>
+
+        <div class="col-md-4 mt-4 mt-md-0 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/badal_singh_patel_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Badal Singh Patel</h2>
+            <p class="mt-n2">Vice President</p>
+        </div>
+
+        <div class="col-md-4 mt-4 mt-md-0 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/hariom_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Hariom</h2>
+            <p class="mt-n2">General Secretary</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/saurabh_singh_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Saurabh Singh</h2>
+            <p class="mt-n2">Secretary</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/abhishek_arela_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Abhishek Arela</h2>
+            <p class="mt-n2">Treasurer</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/munendra_singh_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Munendra Singh</h2>
+            <p class="mt-n2">Co-Treasurer</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/abhishri_dwivedi_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Abhishri Dwivedi</h2>
+            <p class="mt-n2">Founder/Content Writer</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/abhishek_singh_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Abhishek Singh</h2>
+            <p class="mt-n2">Founder/Developer</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/abhinav_kumar_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Abhinav Kumar</h2>
+            <p class="mt-n2">Founder/Editor</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/avinash_gupta_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+   
+            <h2 class="mt-3 team-membar-name">Avinash Gupta</h2>
+            <p class="mt-n2">Founder</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/rohit_shukla_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+  
+            <h2 class="mt-3 team-membar-name">Rohit Shukla</h2>
+            <p class="mt-n2">Founder</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/vishal_singh_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Vishal Singh</h2>
+            <p class="mt-n2">Founder</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/amit_patel_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Amit Patel</h2>
+            <p class="mt-n2">Founder</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/banshi_lal_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Banshi Lal</h2>
+            <p class="mt-n2">Founder</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/divyalata_sahni_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Divyalata Sahni</h2>
+            <p class="mt-n2">Founder</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/pallavee_maurya_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Pallavee Maurya</h2>
+            <p class="mt-n2">Founder</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/ananya_chatterjee_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Ananya Chatterjee</h2>
+            <p class="mt-n2">Founder</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/naresh_bhagel_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Naresh Bhagel</h2>
+            <p class="mt-n2">Founder</p>
+        </div>
+
+        <div class="col-md-4 mt-4 text-center">
+            <div class="img-hover-zoom ml-auto mr-auto">
+                <img src="{% static 'main/images/team/anurag_yadav_250x250.jpg' %}" class="rounded-circle" width="250px">
+            </div>
+
+            <h2 class="mt-3 team-membar-name">Anurag Yadav</h2>
+            <p class="mt-n2">Founder</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'blog/index.html' %}
+{% load static %}
+
+{% block title %}FindREDD Blog | {% if user.userdetail.name %}{{ user.userdetail.name }} - {% endif %}@{{ user.username }} {% endblock %}
+
+{% block style %}
+<style>
+    .dashboard-post-section .dashboard-post-section-row {
+        border: 1px solid rgb(216, 216, 216);
+        border-radius: 5px;
+        padding: 20px;
+    }
+
+    .dashboard-post-section p a {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .dashboard-info-section span {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    @media screen and (max-width: 768px) {
+        .dashboard-info-section {
+            display: none;
+        }
+    }
+
+</style>
+{% endblock %}
+
+{% block main-content %}
+
+<div class="container-lg dashboard-post-section">
+    <h1 class="custom-head text-center mt-3 mb-2 mt-sm-4 mb-sm-3 mt-lg-5 mb-lg-2">Dashboard</h1>
+
+    <div class="row dashboard-info-section mb-2">
+        <div class="col-6">
+            <div class="text-muted" style="float: left;"><span><small>Total post: {{ user_blog_post_count }}</small></span></div>
+        </div>
+
+        <div class="col-6">
+            <div class="text-muted" style="float: right;"><span><small>Last login: {{ user.last_login|date:"d/m/Y h:i A" }}</small></span></div>
+        </div>
+    </div>
+
+    {% if page_obj %}
+
+        <div class="dashboard-post-section-row">
+        {% for obj in page_obj %}
+            <div class="row">
+                <div class="col-12">
+                    <h4><a href="{% url 'blog-index' %}{{ obj.slug }}" class="post-head">{{ obj.title }}</a></h4>
+
+                    <p class="text-muted">
+                        <span class="text-muted">Tags: </span>
+
+                        {% for tag in obj.tags %}
+                            <span><a href="{% url 'blog-index' %}category/{{ tag }}" class="text-muted">{{ tag }},</a></span>
+                        {% endfor %}<br>
+                        
+                        <span>Created on: {{ obj.posted_date|date:"l, d F, Y" }}</span>
+                    </p>
+                    
+                    <a href="{% url 'blog-edit-post' obj.slug %}" class="btn btn-success btn-sm mt-n1 mb-2"><img src="{% static 'main/images/icons/edit_post.png' %}" class="mt-n1 mr-1" width="16px">Edit</a>
+                    <a href="{% url 'blog-delete-post' obj.id %}" class="btn btn-danger btn-sm mt-n1 mb-2" onclick="return confirm('Are you sure you want to delete this post?')"><img src="{% static 'main/images/icons/delete_post.png' %}" class="mt-n1 mr-1" width="16px">Delete</a><hr>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+        <div class="row mt-4 mb-n2">
+            <div class="col-12 text-center text-muted">
+                <p><span>Showing page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></p>
+            </div>
+        </div>
+
+        <ul class="pagination pagination-sm justify-content-center mb-5 pb-2">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page=1">&laquo; First</a></li>
+                <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a></li>
+            {% endif %}
+    
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ num }}">{{ num }}</a></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+    
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
+            {% endif %}
+        </ul>
+
+    
+    {% else %}
+    <div class="not-found-section text-center text-muted mb-5">
+        <div class="mt-5 mb-5 py-5">
+            <div><img src="{% static 'main/images/icons/not_found.png' %}" width="64px"></div>
+            <div class="mt-1"><span>No post created yet!</span></div>
+            <div><span>To create a new post, click on <a href="{% url 'blog-create-post' %}">New post</a></span></div>
+        </div>
+    </div><br>
+    {% endif %}
+
+</div>
+{% endblock %}

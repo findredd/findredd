@@ -1,0 +1,63 @@
+{% extends 'blog/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/form.css' %}">
+{% endblock %}
+
+{% block title %}FindREDD Blog | Create new post {% endblock %}
+
+{% block style %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block main-content %}
+<div class="container-lg mb-5" style="max-width: 768px;">
+
+    {% block heading %}
+    <h2 class="custom-head text-center mt-3 mb-2 mt-sm-4 mb-sm-3 mt-lg-5 mb-lg-2">Create new post</h2><br>
+    {% endblock %}
+
+    <form method="POST" enctype="multipart/form-data" class="user-form">
+        {% csrf_token %}
+        {{ form.media }}
+
+        {% if user_blog_post.header %}
+        <div class="mb-4">
+            <img src="{{ user_blog_post.header.url }}" class="img-fluid">
+        </div>
+
+        <div class="user-form-field">
+            {{ form_RH.remove_header|as_crispy_field }}
+        </div>
+        {% endif %}
+
+        <div class="user-form-field">
+            {{ form.header|as_crispy_field }}
+            <p class="mt-n2 text-muted user-form-field-para">Optional, Max width should 800px or less (for fast loading of post)</p>
+        </div>
+
+        <div class="user-form-field">
+            {{ form.title|as_crispy_field }}
+        </div>
+
+        <div class="user-form-field">
+            {{ form.content|as_crispy_field }}
+        </div>
+
+        <div class="user-form-field">
+            {{ form.tags|as_crispy_field }}
+        </div>
+
+        {% block post-button %}
+            <button type="submit" name="submit" class="btn btn-success btn-sm">Post</button>
+            <a href="{% url 'blog-dashboard' %}" class="ml-1 btn btn-secondary btn-sm" onclick="return confirm('Post is not going to save, are you sure to discard it?')">Discard</a>
+        {% endblock %}
+    </form>
+
+</div><br>
+{% endblock %}

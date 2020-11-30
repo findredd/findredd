@@ -1,0 +1,56 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/form.css' %}">
+{% endblock %}
+
+{% block title %}FindREDD | Create your account {% endblock %}
+
+{% block style %}
+<style>
+    .container-sm h1 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    @media screen and (max-width: 768px) {
+        h1 {
+            display: none;
+        }
+    }
+
+</style>
+{% endblock %}
+
+<!-- Navbar Extension -->
+{% block navbar-signin %}
+    <li class="nav-items"><a href="{% url 'signin' %}" class="nav-link">Sign in</a></li>
+{% endblock %}
+
+{% block navbar-signup %}
+{% endblock %}
+
+
+<!-- Signup Section -->
+{% block main-content %}
+
+<div class="container-sm user-form-section py-5">
+    <h1 class="text-center">Create your account</h1>
+    <p class="text-muted mt-n4 mt-md-n1 text-center" style="font-family: 'Roboto Mono', monospace;">Join FindREDD</p>
+
+    <div class="user-form">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <small class="text-muted">By clicking on 'Create account', you agree to FindREDD's <a href="{% url 'terms_of_service' %}" target="_blank">Terms of Service</a> and <a href="{% url 'privacy_policy' %}" target="_blank">Privacy Policy</a></small>
+            <button type="submit" name="submit" class="btn btn-primary btn-block btn-lg mt-2"><small>Create account</small></button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

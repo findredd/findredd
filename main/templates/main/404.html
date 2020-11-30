@@ -1,0 +1,38 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+{% endblock %}
+
+{% block title %}FindREDD | Page not found{% endblock %}
+
+{% block style %}
+<style>
+        
+    .page-not-found-section h1 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    .page-not-found-section p {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 20px;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+<!-- Page Not Found Section -->
+{% block main-content %}
+<div class="container-lg text-center py-5 mt-5 page-not-found-section">
+    <h1>Page not found</h1>
+    <p>Try searching for another...</p>
+</div>
+{% endblock %}

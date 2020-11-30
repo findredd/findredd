@@ -1,0 +1,90 @@
+html {
+    scroll-behavior: smooth;
+}
+
+/* Navbar Section*/
+.navbar {  
+    background: #ffffff;
+    font-family: 'Ubuntu', sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+}
+
+.fa.fa-navicon {
+    color: #212529;
+}
+
+.nav-link {
+    color: #212529;
+    transition: 0.2s;
+}
+
+.nav-link:hover {
+    color: #212529;
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    transition: 0.2s;
+}
+
+.dropdown-menu a {
+    color: #212529;
+}
+
+.dropdown-menu a:hover {
+    background: white;
+    color: #212529;
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+.nav-btn {
+    color: #212529;
+    border: 1px solid #212529;
+}
+
+.nav-btn:hover {
+    background:#b91816;
+    border: 1px solid #b91816;
+    color: white;
+    transition: 0.2s;
+}
+
+.nav-btn:focus {
+    background:#b91816;
+    border: 1px solid #b91816;
+    color: white;
+    transition: 0.2s;
+}
+
+/* Footer Section */
+.footer {
+    background: #b91816;
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: white;
+    opacity: 0.8;
+    text-decoration: none;
+}
+
+.social a {
+    color: white;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.social a:hover {
+    opacity: 0.8;
+    transition: 0.2s;
+}

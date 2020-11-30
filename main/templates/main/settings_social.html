@@ -1,0 +1,52 @@
+{% extends 'main/settings_profile.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}FindREDD | Settings - Social {% endblock %}
+
+{% block navigation-bar-settings %}
+<span>
+    <a href="{% url 'settings' 'social' %}"><small><b>Social</b></small></a>
+</span>
+{% endblock %}
+
+{% block sidebar-profile-div-active %} class="sidebar-item" {% endblock %}
+{% block sidebar-profile-link-active %} class="nav-link sidebar-link" href="{% url 'settings' 'profile' %}" {% endblock %}
+
+{% block sidebar-social-div %} class="sidebar-item-active" {% endblock %}
+{% block sidebar-social-link %} class="nav-link sidebar-link-active" {% endblock %}
+
+{% block user-form-section %}
+<h4><b>Social settings</b></h4><hr>
+
+<form method="POST" class="user-form settings-form">
+    {% csrf_token %}
+    <div class="user-form-field">
+        {{ form.website|as_crispy_field }}
+        <p class="mt-n2 text-muted user-form-field-para">
+            <span>Url of your personal website.</span>
+        </p>
+    </div>
+
+    <div class="user-form-field">
+        {{ form.facebook|as_crispy_field }}
+        <p class="mt-n2 text-muted user-form-field-para">
+            <span>Only the username should be entered and same goes for the boxes given below.</span>
+        </p>
+    </div>
+
+    <div class="user-form-field">
+        {{ form.twitter|as_crispy_field }}
+    </div>
+
+    <div class="user-form-field">
+        {{ form.instagram|as_crispy_field }}
+    </div>
+
+    <p class="text-muted user-form-field-para">
+        All of the fields on this page are optional and can be deleted at any time, and by filling them out, you're giving us consent to show these on your profile. 
+    </p>
+
+    <button type="submit" class="btn btn-success btn-sm">Change social links</button>
+</form>
+{% endblock %}
