@@ -15,6 +15,7 @@ def index(request):
     objects = Post.objects.all().order_by('-posted_date')
 
     query = request.GET.get('q')
+    
     if query:
         objects = objects.filter(Q(author__username__icontains=query) | Q(author__first_name__icontains=query) | Q(author__last_name__icontains=query) | Q(title__icontains=query) | Q(tags__icontains=query)).distinct()
 

@@ -1,7 +1,7 @@
+import threading
+
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from six import text_type
-
-import threading
 
 
 class EmailThread(threading.Thread):

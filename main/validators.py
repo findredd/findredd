@@ -1,7 +1,10 @@
-from django.utils.deconstruct import deconstructible
-from django.utils.translation import ugettext_lazy as _
-from django.core.validators import BaseValidator
 from datetime import date
+
+from django.utils.deconstruct import deconstructible
+
+from django.utils.translation import ugettext_lazy as _
+
+from django.core.validators import BaseValidator
 
 
 def calculate_age(born):

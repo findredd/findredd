@@ -1,9 +1,16 @@
 import os
 
 from django.db.models.signals import pre_save, post_save, post_delete
+
 from django.contrib.auth.models import User
+
 from django.dispatch import receiver
-from main.models import UserDetail, UserPicture, UserSocialUrl, UserConfig
+
+from main.models import (
+    UserDetail,
+    UserPicture,
+    UserSocialUrl,
+    UserConfig )
 
 
 @receiver(post_save, sender=User)

@@ -25,7 +25,11 @@ from main.forms import (
     user_complete_profile_info_form,
     certificate_search_form )
 
-from main.models import UserDetail, UserSocialUrl, UserConfig, Certificate
+from main.models import (
+    UserDetail,
+    UserSocialUrl,
+    UserConfig,
+    Certificate )
 
 from django.contrib.auth.forms import (
     UserCreationForm, 
@@ -495,6 +499,7 @@ def certificate_details(request, certificate_number=None):
     certificate = get_object_or_404(Certificate, certificate_number=certificate_number)
     return render(request, 'main/certificate_details.html', {'certificate': certificate, 'certificate_number': certificate_number})
 
+
 def terms_of_service(request):
     return render(request, 'main/terms_of_service.html')
 
@@ -521,6 +526,7 @@ class PasswordResetMainView(SuccessMessageMixin, PasswordResetView):
     def dispatch(self, request, *args, **kwargs):
         request.session['temp'] = 'password_reset_email_sent'
         return super().dispatch(request, *args, **kwargs)
+
 
 class PasswordResetConfirmMainView(SuccessMessageMixin, PasswordResetConfirmView):
     success_url = reverse_lazy('signin')
