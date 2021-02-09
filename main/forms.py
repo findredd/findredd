@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import fields
 
 from main.models import (
     UserDetail,
@@ -6,7 +7,8 @@ from main.models import (
     UserSocialUrl,
     UserConfig,
     UserIssue,
-    UserMessage )
+    UserMessage,
+    BloodRequest )
     
 from django.contrib.auth.models import User
 
@@ -242,3 +244,14 @@ class certificate_search_form(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['certificate_number'].widget.attrs.update(placeholder='Eg: FITP-20XX-XX-XX')
+
+
+class blood_request_form(forms.ModelForm):
+    class Meta:
+        model = BloodRequest
+        fields = ["patient_name", "your_name", "district", "hospital_address", "mobile_number", "alternate_mobile_number", "blood_group_required", "units_required"]
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['hospital_address'].widget.attrs.update(placeholder='Please provide full address of hospital with distict name, state name, pincode etc...')
+        self.fields['alternate_mobile_number'].widget.attrs.update(placeholder='optional')

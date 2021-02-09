@@ -1,5 +1,13 @@
 from django.contrib import admin
-from main.models import UserDetail, UserPicture, UserSocialUrl, UserConfig, UserIssue, UserMessage, Certificate
+from main.models import ( 
+    BloodRequest, UserDetail,
+    UserPicture,
+    UserSocialUrl,
+    UserConfig,
+    UserIssue,
+    UserMessage,
+    Certificate,
+    DistrictCoordinator, )
 
 
 class UserDetailAdmin(admin.ModelAdmin):
@@ -44,6 +52,18 @@ class CertificateAdmin(admin.ModelAdmin):
     search_fields = ('certificate_number', )
 
 
+class DistrictCoordinatorAdmin(admin.ModelAdmin):
+    list_display = ('district', 'name', 'mobile_number', 'created_at', )
+    ordering = ('district', )
+    search_fields = ('district', 'name', 'mobile_number', )
+
+
+class BloodRequestAdmin(admin.ModelAdmin):
+    list_display = ('district', 'patient_name', 'blood_group_required', 'units_required', 'created_at', )
+    ordering = ('district', )
+    search_fields = ('district', 'patient_name', 'mobile_number', )
+
+
 admin.site.register(UserDetail, UserDetailAdmin)
 admin.site.register(UserPicture, UserPictureAdmin)
 admin.site.register(UserSocialUrl, UserSocialUrlAdmin)
@@ -51,3 +71,5 @@ admin.site.register(UserConfig, UserConfigAdmin)
 admin.site.register(UserIssue, UserIssueAdmin)
 admin.site.register(UserMessage, UserMessageAdmin)
 admin.site.register(Certificate, CertificateAdmin)
+admin.site.register(DistrictCoordinator, DistrictCoordinatorAdmin)
+admin.site.register(BloodRequest, BloodRequestAdmin)

@@ -70,7 +70,7 @@
 
                     {% if user.is_authenticated %}
                         <td>{{ obj.userdetail.address }}</td>
-                        <td><a href="tel:{{ obj.userdetail.mobile_number }}">{{ obj.userdetail.mobile_number }}</a></td>
+                        <td><a href="tel:+91{{ obj.userdetail.mobile_number }}">{{ obj.userdetail.mobile_number }}</a></td>
                     {% else %}
                         <td><a href="{% url 'signin' %}?next={{ request.get_full_path|urlencode }}">Show address</a></td>
                         <td><a href="{% url 'signin' %}?next={{ request.get_full_path|urlencode }}">Show mobile number</a></td>

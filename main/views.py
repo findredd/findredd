@@ -23,16 +23,14 @@ from main.forms import (
     user_issue_form,
     user_message_form,
     user_complete_profile_info_form,
-    certificate_search_form )
+    certificate_search_form,
+    blood_request_form, )
 
 from main.models import (
-    UserDetail,
-    UserSocialUrl,
-    UserConfig,
-    Certificate )
+    Certificate,
+    DistrictCoordinator, )
 
-from django.contrib.auth.forms import (
-    UserCreationForm, 
+from django.contrib.auth.forms import ( 
     AuthenticationForm,
     PasswordChangeForm )
 
@@ -78,7 +76,9 @@ def index(request):
         context = {'page_obj': page_obj, 'district': district, 'blood_group': blood_group, 'search_path': urlencode({'district': district, 'blood_group': blood_group}, quote_via=quote_plus)}
         return render(request, 'main/blood_donor_search.html', context)
         
-    context = {'form': form}
+    district_coordinators = DistrictCoordinator.objects.values('district', 'name', 'mobile_number')[:25]
+
+    context = {'form': form, 'district_coordinators': district_coordinators}
     return render(request, 'main/index.html', context)
 
 
@@ -168,10 +168,10 @@ def complete_profile(request, arg=None):
                 return redirect('profile', request.user.username)
 
             if form_MN.errors:
-                messages.add_message(request, messages.ERROR, form.errors, extra_tags='alert-danger')
+                messages.add_message(request, messages.ERROR, form_MN.errors, extra_tags='alert-danger')
 
             if form_LN.errors:
-                messages.add_message(request, messages.ERROR, form.errors, extra_tags='alert-danger')
+                messages.add_message(request, messages.ERROR, form_LN.errors, extra_tags='alert-danger')
 
             context = {'form_MN': form_MN, 'form_LN': form_LN}
             return render(request, 'main/complete_profile_contact.html', context)
@@ -463,9 +463,9 @@ def report_issue(request):
         issue_heading = instance.heading
         issue_description = instance.description
 
-        account_activation_email = EmailMessage(
+        new_issue_email = EmailMessage(
             'New issue from - %s' %reporter_name,
-            'Hi admin, a new issue is reported to FindREDD.\n\n<Reporter Details>:\n\n<Name>: %s \n<Username>: @(%s) \n<Email>: %s \n-------------------\n\n<Issue Details>: \n\n<Category>: %s \n<Heading>: %s \n<Discription>: %s \n-------------------\n\nThe FindREDD System\n//This is an auto generated email "DO-NOT-REPLY-HERE"' % (reporter_name, reporter_username, reporter_email, issue_category, issue_heading, issue_description),
+            'Hi admin, a new issue is reported to FindREDD.\n\n<Reporter Details>:\n\n<Name>: %s \n<Username>: @(%s) \n<Email>: %s \n-------------------\n\n<Issue Details>: \n\n<Category>: %s \n<Heading>: %s \n<Discription>: %s \n\n====================\n\nThe FindREDD System\n//This is an auto generated email "DO-NOT-REPLY"' % (reporter_name, reporter_username, reporter_email, issue_category, issue_heading, issue_description),
             conf_settings.EMAIL_HOST_USER,
             ['developer.findredd@gmail.com', ],
         )
@@ -474,7 +474,7 @@ def report_issue(request):
             issue_attachment = request.FILES['attachment']
             account_activation_email.attach(issue_attachment.name, issue_attachment.read(), issue_attachment.content_type)
 
-        EmailThread(account_activation_email).start()
+        EmailThread(new_issue_email).start()
 
         instance.save()
 
@@ -498,6 +498,40 @@ def certificate(request):
 def certificate_details(request, certificate_number=None):
     certificate = get_object_or_404(Certificate, certificate_number=certificate_number)
     return render(request, 'main/certificate_details.html', {'certificate': certificate, 'certificate_number': certificate_number})
+
+
+def raise_a_request(request):
+    form = blood_request_form(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+
+        patient_name = instance.patient_name
+        form_filler_name = instance.your_name
+        district = instance.district
+        hospital_address = instance.hospital_address
+        mobile_number = instance.mobile_number
+        alternate_mobile_number = instance.alternate_mobile_number
+        blood_group_required = instance.blood_group_required
+        units_required = instance.units_required
+
+        blood_request_email = EmailMessage(
+            'New blood request from - %s' %form_filler_name,
+            'Hi admin, a new blood request is raised to FindREDD.\n\nRequest Details:\n================\n\nPatient name: %s \nFormfiller name: %s \nDistrict: %s \nBlood group required: %s \nUnits required: %s \nMobile number: %s \nAlternate mobile number: %s \nHospital address: %s \n\n====================\n\nThe FindREDD System\n//This is an auto generated email "DO-NOT-REPLY"' % (patient_name, form_filler_name, district, blood_group_required, units_required, mobile_number, alternate_mobile_number, hospital_address, ),
+            conf_settings.EMAIL_HOST_USER,
+            ['divam3003@gmail.com', ],
+        )
+
+        EmailThread(blood_request_email).start()
+
+        instance.save()
+
+        messages.success(request, 'Request has been submitted successfully.')
+
+        return redirect('raise_a_request')
+
+    context = {'form': form}
+    return render(request, 'main/raise_a_request.html', context)
 
 
 def terms_of_service(request):
