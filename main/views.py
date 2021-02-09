@@ -76,7 +76,7 @@ def index(request):
         context = {'page_obj': page_obj, 'district': district, 'blood_group': blood_group, 'search_path': urlencode({'district': district, 'blood_group': blood_group}, quote_via=quote_plus)}
         return render(request, 'main/blood_donor_search.html', context)
         
-    district_coordinators = DistrictCoordinator.objects.values('district', 'name', 'mobile_number')[:25]
+    district_coordinators = DistrictCoordinator.objects.values('district', 'name', 'mobile_number')[:60]
 
     context = {'form': form, 'district_coordinators': district_coordinators}
     return render(request, 'main/index.html', context)
