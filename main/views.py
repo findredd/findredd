@@ -433,7 +433,7 @@ def contact_us(request):
             'New message from - %s' % user_name,
             'Hi admin, a new message is sent to FindREDD.\n\n<Sender Details>:\n\n<Name>: %s \n<Email>: %s \n<Message>: %s \n-------------------\n\nThe FindREDD System\n//This is an auto generated email "DO-NOT-REPLY-HERE"' % (user_name, user_email, user_message),
             conf_settings.EMAIL_HOST_USER,
-            ['info.findredd@gmail.com'],
+            ['info@findredd.in'],
         )
 
         EmailThread(account_activation_email).start()
@@ -467,7 +467,7 @@ def report_issue(request):
             'New issue from - %s' %reporter_name,
             'Hi admin, a new issue is reported to FindREDD.\n\n<Reporter Details>:\n\n<Name>: %s \n<Username>: @(%s) \n<Email>: %s \n-------------------\n\n<Issue Details>: \n\n<Category>: %s \n<Heading>: %s \n<Discription>: %s \n\n====================\n\nThe FindREDD System\n//This is an auto generated email "DO-NOT-REPLY"' % (reporter_name, reporter_username, reporter_email, issue_category, issue_heading, issue_description),
             conf_settings.EMAIL_HOST_USER,
-            ['developer.findredd@gmail.com', ],
+            ['developer@findredd.in', ],
         )
 
         if request.FILES:
