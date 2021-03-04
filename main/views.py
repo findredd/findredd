@@ -96,7 +96,7 @@ def signup(request):
 
         account_activation_email = EmailMessage(
             '[FindREDD] Account activation link for @' + instance.username,
-            'Hi @' + instance.username + ', Please click the link below to activate your account \n' + activation_link +'\n\nThe FindREDD System\n//This is an auto generated email "DO-NOT-REPLY-HERE"',
+            'Hi @' + instance.username + ', Please click the link below to activate your account \n' + activation_link +'\n\nThe FindREDD System\n//This is an system generated email "DO-NOT-REPLY-HERE"',
             conf_settings.EMAIL_HOST_USER,
             [instance.email],
         )
@@ -431,7 +431,7 @@ def contact_us(request):
 
         account_activation_email = EmailMessage(
             'New message from - %s' % user_name,
-            'Hi admin, a new message is sent to FindREDD.\n\n<Sender Details>:\n\n<Name>: %s \n<Email>: %s \n<Message>: %s \n-------------------\n\nThe FindREDD System\n//This is an auto generated email "DO-NOT-REPLY-HERE"' % (user_name, user_email, user_message),
+            'Hi admin, a new message is sent to FindREDD.\n\n<Sender Details>:\n\n<Name>: %s \n<Email>: %s \n<Message>: %s \n-------------------\n\nThe FindREDD System\n//This is an system generated email "DO-NOT-REPLY-HERE"' % (user_name, user_email, user_message),
             conf_settings.EMAIL_HOST_USER,
             ['info@findredd.in'],
         )
@@ -465,7 +465,7 @@ def report_issue(request):
 
         new_issue_email = EmailMessage(
             'New issue from - %s' %reporter_name,
-            'Hi admin, a new issue is reported to FindREDD.\n\n<Reporter Details>:\n\n<Name>: %s \n<Username>: @(%s) \n<Email>: %s \n-------------------\n\n<Issue Details>: \n\n<Category>: %s \n<Heading>: %s \n<Discription>: %s \n\n====================\n\nThe FindREDD System\n//This is an auto generated email "DO-NOT-REPLY"' % (reporter_name, reporter_username, reporter_email, issue_category, issue_heading, issue_description),
+            'Hi developer, a new issue is reported to FindREDD.\n\n<Reporter Details>:\n\n<Name>: %s \n<Username>: @%s \n<Email>: %s \n-------------------\n\n<Issue Details>: \n\n<Category>: %s \n<Heading>: %s \n<Discription>: %s \n\n====================\n\nThe FindREDD System\n//This is an system generated email "DO-NOT-REPLY"' % (reporter_name, reporter_username, reporter_email, issue_category, issue_heading, issue_description),
             conf_settings.EMAIL_HOST_USER,
             ['developer@findredd.in', ],
         )
@@ -517,9 +517,9 @@ def raise_a_request(request):
 
         blood_request_email = EmailMessage(
             'New blood request from - %s' %form_filler_name,
-            'Hi admin, a new blood request is raised to FindREDD.\n\nRequest Details:\n================\n\nPatient name: %s \nFormfiller name: %s \nDistrict: %s \nBlood group required: %s \nUnits required: %s \nMobile number: %s \nAlternate mobile number: %s \nHospital address: %s \n\n====================\n\nThe FindREDD System\n//This is an auto generated email "DO-NOT-REPLY"' % (patient_name, form_filler_name, district, blood_group_required, units_required, mobile_number, alternate_mobile_number, hospital_address, ),
+            'Hi admin, a new blood request is raised to FindREDD.\n\nRequest Details:\n================\n\nPatient name: %s \nFormfiller name: %s \nDistrict: %s \nBlood group required: %s \nUnits required: %s \nMobile number: %s \nAlternate mobile number: %s \nHospital address: %s \n\n====================\n\nThe FindREDD System\n//This is an system generated email "DO-NOT-REPLY"' % (patient_name, form_filler_name, district, blood_group_required, units_required, mobile_number, alternate_mobile_number, hospital_address, ),
             conf_settings.EMAIL_HOST_USER,
-            ['divam3003@gmail.com', ],
+            ['info@findredd.in', ],
         )
 
         EmailThread(blood_request_email).start()
