@@ -768,7 +768,7 @@ class UserDetail(models.Model):
 class UserPicture(models.Model):
     username = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(default='default_profile_picture.png', upload_to='profile_pictures', blank=True, null=True)
-    uploaded_at = models.DateTimeField(auto_now=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
 class UserSocialUrl(models.Model):
