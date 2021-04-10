@@ -1,1 +1,1 @@
-web: newrelic-admin run-program gunicorn findredd.wsgi
+web: sqreen-start newrelic-admin run-program gunicorn findredd.wsgi
