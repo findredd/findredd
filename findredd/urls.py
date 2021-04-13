@@ -13,16 +13,29 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import os
+
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin_panel/', admin.site.urls),
     path('blog/', include('blog.urls')),
     path('', include('main.urls')),
 ]
+
+
+if os.environ.get('PROJECT_ENV') == 'Development':
+    try:
+        import debug_toolbar
+
+        urlpatterns += [
+            path('__debug__/', include(debug_toolbar.urls)),
+        ]
+        
+    except:
+        pass
 
 
 handler404 = 'main.views.error_404'
