@@ -14,7 +14,7 @@ sentry_sdk.init(
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['findredd.in']
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
 
 INSTALLED_APPS += [
     'storages',
