@@ -56,7 +56,6 @@ from django.core.mail import EmailMessage
 from django.conf import settings as conf_settings
 
 from django.db.models import Q
-from sentry_sdk import capture_message
 
 
 def index(request):
@@ -548,7 +547,14 @@ def team(request):
 
 # Error Handler View
 def error_404(request, exception=None):
-    capture_message("Page not found!", level="error")
+    if os.environ.get('PROJECT_ENV') == 'Development':
+        pass
+    else:
+        try:
+            from sentry_sdk import capture_message
+            capture_message("Page not found!", level="error")
+        except:
+            pass
     
     return render(request, 'main/404.html')
     
