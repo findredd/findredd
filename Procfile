@@ -1,1 +1,1 @@
-web: newrelic-admin gunicorn findredd.wsgi
+web: gunicorn findredd.wsgi
