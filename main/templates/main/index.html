@@ -256,6 +256,10 @@
                             {% if request.user.userconfig.blog %}
                                 <a class="dropdown-item" href="{% url 'blog-dashboard' %}"><img src="{% static 'main/images/icons/blog.png' %}" class="mr-2 mt-n1" width="18px">Blog</a>
                             {% endif %}
+
+                            {% if request.user.is_staff %}
+                                <a class="dropdown-item" href="{% url 'index' %}admin"><img src="{% static 'main/images/icons/admin.png' %}" class="mr-2 mt-n1" width="18px">Admin</a>
+                            {% endif %}
                             
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'settings' 'profile' %}"><img src="{% static 'main/images/icons/settings.png' %}" class="mr-2 mt-n1" width="18px">Settings</a>
