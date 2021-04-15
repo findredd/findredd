@@ -4,12 +4,12 @@ from .base import *
 
 import django_heroku
 import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations import django, redis
+
 
 sentry_sdk.init(
     dsn=os.environ['SENTRY_DSN'],
-    integrations=[DjangoIntegration()],
-    send_default_pii=True,
+    integrations=[django.DjangoIntegration(), redis.RedisIntegration()],
 )
 
 DEBUG = False
