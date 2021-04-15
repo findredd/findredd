@@ -547,18 +547,13 @@ def team(request):
 
 # Error Handler View
 def error_404(request, exception=None):
-    if os.environ.get('PROJECT_ENV') == 'Development':
-        pass
-    else:
-        try:
-            from sentry_sdk import capture_message
-            capture_message("Page not found!", level="error")
-        except:
-            pass
-    
     return render(request, 'main/404.html')
-    
-    
+
+
+def error_500(request, exception=None):
+    return render(request, 'main/500.html')
+
+
 # Django Contrib Auth Views
 class PasswordResetMainView(SuccessMessageMixin, PasswordResetView):
     success_url = reverse_lazy('password_reset_email_sent')
