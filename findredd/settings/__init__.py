@@ -1,7 +1,7 @@
 import os
 
 
-if os.environ.get('PROJECT_ENV') == 'Development':
+if os.environ.get('PROJECT_ENV') == 'development':
     try:
         from .dev import *
     except:
