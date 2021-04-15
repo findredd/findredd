@@ -20,7 +20,7 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path('admin_panel/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),
     path('', include('main.urls')),
 ]
@@ -39,3 +39,4 @@ if os.environ.get('PROJECT_ENV') == 'Development':
 
 
 handler404 = 'main.views.error_404'
+handler500 = 'main.views.error_500'
