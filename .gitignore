@@ -130,3 +130,6 @@ dmypy.json
 
 # VScode project settings
 .vscode/
+
+# Django project specific settings
+media/
