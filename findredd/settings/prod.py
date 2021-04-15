@@ -8,8 +8,13 @@ from sentry_sdk.integrations import django, redis
 
 
 sentry_sdk.init(
-    dsn=os.environ['SENTRY_DSN'],
-    integrations=[django.DjangoIntegration(), redis.RedisIntegration()],
+    environment = os.environ.get('PROJECT_ENV'),
+    dsn = os.environ['SENTRY_DSN'],
+    integrations = [django.DjangoIntegration(), redis.RedisIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii = True,
 )
 
 DEBUG = False
