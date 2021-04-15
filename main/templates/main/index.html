@@ -256,6 +256,10 @@
                             {% if request.user.userconfig.blog %}
                                 <a class="dropdown-item" href="{% url 'blog-dashboard' %}"><img src="{% static 'main/images/icons/blog.png' %}" class="mr-2 mt-n1" width="18px">Blog</a>
                             {% endif %}
+
+                            {% if request.user.is_staff %}
+                                <a class="dropdown-item" href="{% url 'index' %}admin"><img src="{% static 'main/images/icons/admin.png' %}" class="mr-2 mt-n1" width="18px">Admin</a>
+                            {% endif %}
                             
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'settings' 'profile' %}"><img src="{% static 'main/images/icons/settings.png' %}" class="mr-2 mt-n1" width="18px">Settings</a>
@@ -288,7 +292,7 @@
             <div class="row">
                 <div class="col-lg-6 text-white">
                     <h1 class="text-center text-lg-left mb-3 mb-lg-0">FindREDD for life</h1>
-                    <h2>The ultimate goal of our organisation is to provide an easy-to-use, easy-to-access, efficient, and reliable way to get life-saving blood, free of cost.</h2>
+                    <h2>The ultimate goal of our organization is to provide an easy-to-use, easy-to-access, efficient, and reliable way to get life-saving blood, free of cost.</h2>
                 </div>
 
                 <div class="col-lg-6 text-center">
