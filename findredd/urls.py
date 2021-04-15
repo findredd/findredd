@@ -26,7 +26,7 @@ urlpatterns = [
 ]
 
 
-if os.environ.get('PROJECT_ENV') == 'Development':
+if os.environ.get('PROJECT_ENV') == 'development':
     try:
         import debug_toolbar
 
