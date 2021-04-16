@@ -3,7 +3,7 @@ certifi==2020.12.5
 Django==3.2
 django-ckeditor==6.0.0
 django-crispy-forms==1.11.2
-django-debug-toolbar==3.2
+django-debug-toolbar==3.2.1
 django-js-asset==1.2.2
 django-multiselectfield==0.1.12
 Pillow==8.2.0
