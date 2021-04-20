@@ -24,7 +24,8 @@ from main.forms import (
     user_message_form,
     user_complete_profile_info_form,
     certificate_search_form,
-    blood_request_form, )
+    blood_request_form,
+    plasma_donor_registration_form, )
 
 from main.models import (
     Certificate,
@@ -531,6 +532,20 @@ def raise_a_request(request):
 
     context = {'form': form}
     return render(request, 'main/raise_a_request.html', context)
+
+
+def plasma_donor(request):
+    form = plasma_donor_registration_form(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+
+        messages.success(request, 'Registration has been successfull.')
+
+        return redirect('plasma_donor')
+
+    context = {'form': form}
+    return render(request, 'main/plasma_donor.html', context)
 
 
 def terms_of_service(request):

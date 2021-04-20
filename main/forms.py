@@ -8,7 +8,8 @@ from main.models import (
     UserConfig,
     UserIssue,
     UserMessage,
-    BloodRequest )
+    BloodRequest,
+    PlasmaDonor, )
     
 from django.contrib.auth.models import User
 
@@ -254,4 +255,15 @@ class blood_request_form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['hospital_address'].widget.attrs.update(placeholder='Please provide full address of hospital with distict name, state name, pincode etc...')
+        self.fields['alternate_mobile_number'].widget.attrs.update(placeholder='optional')
+
+
+class plasma_donor_registration_form(forms.ModelForm):
+    class Meta:
+        model = PlasmaDonor
+        fields = ["name", "gender", "age", "blood_group", "mobile_number", "alternate_mobile_number", "email_address", "district", "address", "status"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['address'].widget.attrs.update(placeholder='Please provide full address with distict name, state name, pincode etc...')
         self.fields['alternate_mobile_number'].widget.attrs.update(placeholder='optional')

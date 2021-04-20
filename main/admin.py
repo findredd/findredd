@@ -8,7 +8,8 @@ from main.models import (
     UserIssue,
     UserMessage,
     Certificate,
-    DistrictCoordinator, )
+    DistrictCoordinator,
+    PlasmaDonor, )
 
 
 class UserDetailAdmin(admin.ModelAdmin):
@@ -64,6 +65,11 @@ class BloodRequestAdmin(admin.ModelAdmin):
     ordering = ('district', )
     search_fields = ('district', 'patient_name', 'mobile_number', )
 
+class PlasmaDonorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'age', 'gender', 'district', 'blood_group', 'created_at', )
+    ordering = ('district', )
+    search_fields = ('district', 'name', 'mobile_number')
+
 
 admin.site.register(UserDetail, UserDetailAdmin)
 admin.site.register(UserPicture, UserPictureAdmin)
@@ -74,3 +80,4 @@ admin.site.register(UserMessage, UserMessageAdmin)
 admin.site.register(Certificate, CertificateAdmin)
 admin.site.register(DistrictCoordinator, DistrictCoordinatorAdmin)
 admin.site.register(BloodRequest, BloodRequestAdmin)
+admin.site.register(PlasmaDonor, PlasmaDonorAdmin)

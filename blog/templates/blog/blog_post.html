@@ -122,17 +122,17 @@ $(document).ready(function() {
                     <span>
                         {% if blog_post.author.userdetail.bio %}
                             {{ blog_post.author.userdetail.bio }}
-                            <hr width="75%" style="float: left; margin-top: -14px;">
+                            <hr width="75%" style="float: left; margin-top: -14px;"><br>
                         {% endif %}
                     </span>
                 </p>
                 
 
                 {% if blog_post.author.id == user.id %}
-                
-                    <a href="{% url 'blog-edit-post' blog_post.slug %}" class="btn btn-success btn-sm"><img src="{% static 'main/images/icons/edit_post.png' %}" class="mt-n1 mr-1" width="16px">Edit</a>
-                    <a href="{% url 'blog-delete-post' blog_post.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this post?')"><img src="{% static 'main/images/icons/delete_post.png' %}" class="mt-n1 mr-1" width="16px">Delete</a>
-                
+                    <div style="margin-top: -35px;">
+                        <a href="{% url 'blog-edit-post' blog_post.slug %}" class="btn btn-success btn-sm"><img src="{% static 'main/images/icons/edit_post.png' %}" class="mt-n1 mr-1" width="16px">Edit</a>
+                        <a href="{% url 'blog-delete-post' blog_post.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this post?')"><img src="{% static 'main/images/icons/delete_post.png' %}" class="mt-n1 mr-1" width="16px">Delete</a>
+                    </div>
                 {% endif %}
 
             </div>
