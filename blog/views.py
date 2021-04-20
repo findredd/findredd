@@ -81,7 +81,7 @@ def create_post(request):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.author = request.user
-            instance.slug = datetime.now().strftime('%d-%m-%Y-%I-%M-%S') + '-' + slugify(request.POST['title'])
+            instance.slug = datetime.now().strftime('%d-%m-%Y-%I-%M-%S') + '-' + slugify(instance.title)
 
             instance.save()
 
@@ -102,7 +102,7 @@ def edit_post(request, slug=None):
             
         if form.is_valid() and form_RH.is_valid():
             instance = form.save(commit=False)
-            instance.slug = datetime.now().strftime('%d-%m-%Y-%I-%M-%S') + '-' + slugify(request.POST['title'])
+            instance.slug = datetime.now().strftime('%d-%m-%Y-%I-%M-%S') + '-' + slugify(instance.title)
 
             if form_RH.cleaned_data['remove_header']:
                 instance.header = None

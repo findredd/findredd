@@ -1,5 +1,3 @@
-import uuid
-
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -21,7 +19,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     header = models.ImageField(upload_to='post_headers', blank=True, null=True)
     title = models.CharField(max_length=500)
-    slug = models.SlugField(max_length=511, unique=True, default=uuid.uuid4)
+    slug = models.SlugField(max_length=511, unique=True)
     content = RichTextField()
     posted_date = models.DateTimeField(auto_now_add=True)
     tags = MultiSelectField(choices=TAGS_CHOICES)
