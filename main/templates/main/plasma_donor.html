@@ -1,0 +1,81 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/form.css' %}">
+{% endblock %}
+
+{% block title %}FindREDD | Plasma donor registration {% endblock %}
+
+{% block style %}
+<style>
+    
+    .container-sm h1 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    #div_id_status {
+        display: table;
+        width: 100%;
+    }
+
+    #div_id_status div {
+        display: table-row;
+        vertical-align: middle;
+    }
+
+    .form-check-input {
+        margin-left: 2px;
+    }
+
+    .form-check-label {
+        display: inline-block;
+        vertical-align: -3px;
+        margin-left: 25px;
+    }
+
+    @media screen and (max-width: 768px) {
+        h1 {
+            display: none;
+        }
+    }
+    
+</style>
+{% endblock %}
+
+
+<!-- Plasma Donor Registration Section -->
+{% block main-content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="container-fluid alert alert-{{ message.tags }}">
+            <div class="container message">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span id="id_message">{{ message }}</span>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="container-sm user-form-section py-5">
+    <h1 class="text-center">Plasma donor registration</h1>
+
+    <p class="text-muted mt-n4 mt-md-n1 text-center" style="font-family: 'Roboto Mono', monospace;">Please fill out the following form and we'll be in touch with you in need.</p>
+
+    <div class="user-form">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <small class="text-muted">Provide accurate mobile number and full address so that we can reach you out in need...</small>
+            <button type="submit" name="submit" class="btn btn-primary btn-block btn-lg mt-2"><small>Register</small></button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

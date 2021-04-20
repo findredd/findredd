@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.core.validators import MinLengthValidator, MinValueValidator
 from main.validators import MinAgeValidator
 
+from multiselectfield import MultiSelectField
+
 
 DISTRICT_CHOICES = [
     (None, 'Select district'),
@@ -752,6 +754,12 @@ STATUS_CHOICES = [
     ('Not available', 'Not available'),
 ]
 
+GENDER_CHOICES = [
+    (None, 'Select gender'),
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+    ('Other', 'Other'),
+]
 
 class UserDetail(models.Model):
     username = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -862,4 +870,29 @@ class BloodRequest(models.Model):
     alternate_mobile_number = models.CharField(max_length=10, null=True, blank=True, validators=[MinLengthValidator(10, 'Mobile number must be of 10 digits')])
     blood_group_required = models.CharField(max_length=8, choices=BLOOD_GROUP_CHOICES)
     units_required = models.IntegerField(validators=[MinValueValidator(1, 'No. of units should be greater than or equal to 1')])
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class PlasmaDonor(models.Model):
+
+    STATUS_CHOICES = [
+        ('Tested Covid +ve in last 120 days', 'Tested Covid +ve in last 120 days'),
+        ('Took covid vaccine recently', 'Took Covid vaccine recently'),
+        ('Have thyroid', 'Have thyroid'),
+        ('Weigh 55 kgs or above', 'Weigh 55 kgs or above'),
+        ('Completly recovered', 'Completly recovered'),
+        ('Received plasma from other person', 'Received plasma from other person'),
+        ('Have diabetes or High BP', 'Have diabetes or High BP'),
+    ]
+
+    name = models.CharField(max_length=50)
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
+    age = models.IntegerField(validators=[MinValueValidator(18, 'Minimum age should be 18')])
+    blood_group = models.CharField(max_length=3, blank=True, null=True, choices=BLOOD_GROUP_CHOICES)
+    mobile_number = models.CharField(max_length=10, validators=[MinLengthValidator(10, 'Mobile number must be of 10 digits')])
+    alternate_mobile_number = models.CharField(max_length=10, null=True, blank=True, validators=[MinLengthValidator(10, 'Mobile number must be of 10 digits')])
+    email_address = models.EmailField()
+    district = models.CharField(max_length=40, choices=DISTRICT_CHOICES)
+    address = models.TextField()
+    status = MultiSelectField(choices=STATUS_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)

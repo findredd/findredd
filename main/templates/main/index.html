@@ -229,6 +229,7 @@
             <li class="nav-item ml-2 ml-lg-3"><a href="{% url 'index' %}#what_is_findredd?" class="nav-link">What is FindREDD?</a></li>
             <li class="nav-item ml-2 ml-lg-3"><a href="{% url 'index' %}#heroes" class="nav-link">Heroes</a></li>
             <li class="nav-item ml-2 ml-lg-3"><a href="{% url 'raise_a_request' %}" class="nav-link">Raise a request</a></li>
+            <li class="nav-item ml-2 ml-lg-3"><a href="{% url 'plasma_donor' %}" class="nav-link">Donate plasma</a></li>
             <li class="nav-item ml-2 ml-lg-3"><a href="{% url 'blog-index' %}" class="nav-link">Blog</a></li>
 
             <li class="nav-item dropdown ml-2 ml-lg-3"><a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">More</a>
@@ -719,6 +720,13 @@
     <h1>Raise a request</h1>
     <h2>In case if no donor is available in your district, you can raise a request</h2>
     <a href="{% url 'raise_a_request' %}" class="btn btn-outline-primary mt-3 px-4 py-1">Raise a request</a>
+</div>
+
+<!-- Plasma Donor Registration Section -->
+<div class="container-lg py-5 text-center">
+    <h1>Donate Plasma</h1>
+    <h2>Help patients in need and serve humanity.</h2>
+    <a href="{% url 'plasma_donor' %}" class="btn btn-outline-primary mt-3 px-4 py-1">Plasma donor registration</a>
 </div>
 
 
