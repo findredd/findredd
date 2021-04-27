@@ -847,6 +847,14 @@ class DistrictCoordinator(models.Model):
 
 
 class BloodRequest(models.Model):
+
+    REQUEST_STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('In-touch', 'In-touch'),
+        ('Inappropriate', 'Inappropriate'),
+        ('Insufficient', 'Insufficient'),
+        ('Fulfilled', 'Fulfilled'),
+    ]
     
     BLOOD_GROUP_CHOICES = [
         (None, 'Select blood group'),
@@ -870,6 +878,7 @@ class BloodRequest(models.Model):
     alternate_mobile_number = models.CharField(max_length=10, null=True, blank=True, validators=[MinLengthValidator(10, 'Mobile number must be of 10 digits')])
     blood_group_required = models.CharField(max_length=8, choices=BLOOD_GROUP_CHOICES)
     units_required = models.IntegerField(validators=[MinValueValidator(1, 'No. of units should be greater than or equal to 1')])
+    status = models.CharField(max_length=15, default='Pending', choices=REQUEST_STATUS_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
 
 

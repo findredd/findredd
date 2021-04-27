@@ -61,9 +61,10 @@ class DistrictCoordinatorAdmin(admin.ModelAdmin):
 
 
 class BloodRequestAdmin(admin.ModelAdmin):
-    list_display = ('district', 'patient_name', 'blood_group_required', 'units_required', 'created_at', )
+    list_display = ('district', 'patient_name', 'blood_group_required', 'units_required', 'status', 'created_at', )
     ordering = ('district', )
-    search_fields = ('district', 'patient_name', 'mobile_number', )
+    search_fields = ('district', 'patient_name', 'mobile_number', 'status', )
+
 
 class PlasmaDonorAdmin(admin.ModelAdmin):
     list_display = ('name', 'age', 'gender', 'district', 'blood_group', 'created_at', )
