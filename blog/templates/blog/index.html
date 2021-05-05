@@ -133,7 +133,7 @@
                         <span><a href="{% url 'blog-category' tag %}" class="text-muted">{{ tag }},</a></span>
                     {% endfor %}<br>
 
-                    <span>by <a href="{% url 'profile' obj.author %}">{{ obj.author.userdetail.name }}</a> on {{ obj.posted_date|date:"l, d F, Y" }}</span>
+                    <span>by <a href="{% url 'profile' obj.author__username %}">{{ obj.author__userdetail__name }}</a> on {{ obj.posted_date|date:"l, d F, Y" }}</span>
 
                 </p><hr class="pb-2">
             </div>
