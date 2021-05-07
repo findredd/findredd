@@ -50,6 +50,8 @@
 
 .form-check-label {
     margin-top: 1px;
+    display: inline-block;
+    margin-left: 2px;
 }
 
 label {
