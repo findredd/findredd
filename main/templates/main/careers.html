@@ -99,7 +99,7 @@
 
     {% if posts %}
         {% for post in posts %}
-            <h5><a class="post-title" href="{{ post.url }}">{{ post.title }}</a></h5>
+            <h5><a class="post-title" href="{{ post.url }}" target="_blank">{{ post.title }}</a></h5>
             <span class="post-posted_date">Posted at: {{ post.posted_date|date:"l, d F, Y" }}</span><br>
             {% for value in post.nature %}
                 <span class="post-nature">{{ value }}</span>
