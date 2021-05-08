@@ -1,0 +1,127 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block meta %}
+<meta name="description" content="Careers at FindREDD">
+<meta name="keywords" content="FindREDD, Careers, FindREDD Careers">
+<meta name="author" content="FindREDD">
+{% endblock %}
+
+{% block title %}FindREDD | Careers {% endblock %}
+
+{% block style %}
+<style>
+
+    .custom-nav {
+        font-size: 12px;
+    }
+
+    .post-title {
+        color: rgb(36, 35, 35);
+        transition: 0.2s;
+    }
+
+    .post-title:hover {
+        color: #b91816;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .post-nature, .post-status-live, .post-status-closed {
+        font-size: 10px;
+        background: rgb(235, 235, 235);
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .not-found-section {
+        border: 1px solid rgb(206, 204, 204);
+        border-radius: 5px;
+    }
+
+    .not-found-section span {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .post-posted_date {
+        font-size: 10px;
+    }
+
+    .post-status-live {
+        background: rgb(192, 255, 192);
+    }
+
+    .post-status-closed {
+        background: rgb(255, 195, 195);
+    }
+
+
+</style>
+{% endblock %}
+
+
+{% block main-content %}
+
+<div class="container py-5">
+    <span class="custom-nav"><a href="{% url 'index' %}">Home</a> / <a href="{% url 'careers' %}">Careers</a></span>
+    <h1 class="text-center mt-n3">Careers</h1>
+    <div class="row mt-5">
+        <div class="col-lg-6">
+            <h3>Wanna explore FindREDD?</h3>
+            <p class="mt-3">At FindREDD, we provide opportunities in various fields to the students of India, 
+                where they learn new things and unleash their potential.
+            </p>
+            <a href="#current_opening" class="btn btn-sm btn-primary">Current opening &gt;&gt;</a>
+        </div>
+        <div class="col-lg-6">
+            <div class="text-center mt-4 mt-lg-0">
+                <img class="img-fluid" src="{% static 'main/images/student-image.png' %}" alt="Students image" width="350px">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Partner Platforms Section -->
+<div class="jumbotron">
+    <div class="container text-center">
+        <img class="mr-4" src="{% static 'main/images/internshala_logo_500x172.png' %}" alt="Internshala logo" width="150px">
+        <img class="mr-4" src="{% static 'main/images/indeed_logo_200x83.png' %}" alt="Indeed logo" width="120px">
+        <img class="mr-4 mt-2 mt-lg-0" src="{% static 'main/images/linkedin_logo_425x136.png' %}" alt="LinkedIn logo" width="120px">
+        <img class="mr-4 mt-2 mt-lg-0" src="{% static 'main/images/smart_recruiter_logo_344x68.png' %}" alt="Smart Recruiter logo" width="180px">
+    </div>
+</div>
+
+
+<!-- Current Opening Section -->
+<div class="container py-4 mb-4" id="current_opening">
+    <h3 class="mb-2">Current opening</h3><br>
+
+    {% if posts %}
+        {% for post in posts %}
+            <h5><a class="post-title" href="{{ post.url }}">{{ post.title }}</a></h5>
+            <span class="post-posted_date">Posted at: {{ post.posted_date|date:"l, d F, Y" }}</span><br>
+            {% for value in post.nature %}
+                <span class="post-nature">{{ value }}</span>
+            {% endfor %}
+
+            {% if post.status == 'Live' %}
+                <span class="post-status-live">{{ post.status }}</span>
+            {% else %}
+                <span class="post-status-closed">{{ post.status }}</span>
+            {% endif %}
+
+            <hr>
+        {% endfor %}
+
+    {% else %}
+    <div class="not-found-section text-center text-muted">
+        <div class="mt-5 mb-5 py-5">
+            <div><img src="{% static 'main/images/icons/not_found.png' %}" width="64px"></div>
+            <div class="mt-2"><span>Sorry, No current post is available!</span></div>            
+        </div>
+    </div><br>
+    {% endif %}
+</div>
+
+{% endblock %}

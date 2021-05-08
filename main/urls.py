@@ -6,6 +6,7 @@ from main import views as main_views
 
 urlpatterns = [
     path('', main_views.index, name='index'),
+    path('careers', main_views.careers, name='careers'),
     path('raise_a_request/', main_views.raise_a_request, name='raise_a_request'),
     path('plasma_donor_registration/', main_views.plasma_donor, name='plasma_donor'),
     path('report_issue/', main_views.report_issue, name='report_issue'),

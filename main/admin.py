@@ -9,7 +9,8 @@ from main.models import (
     UserMessage,
     Certificate,
     DistrictCoordinator,
-    PlasmaDonor, )
+    PlasmaDonor,
+    CareerPost, )
 
 
 class UserDetailAdmin(admin.ModelAdmin):
@@ -72,6 +73,12 @@ class PlasmaDonorAdmin(admin.ModelAdmin):
     search_fields = ('district', 'name', 'mobile_number')
 
 
+class CareerPostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'nature', 'status', 'posted_date', )
+    ordering = ('posted_date', )
+    search_fields = ('title', 'status', 'nature', )
+
+
 admin.site.register(UserDetail, UserDetailAdmin)
 admin.site.register(UserPicture, UserPictureAdmin)
 admin.site.register(UserSocialUrl, UserSocialUrlAdmin)
@@ -82,3 +89,4 @@ admin.site.register(Certificate, CertificateAdmin)
 admin.site.register(DistrictCoordinator, DistrictCoordinatorAdmin)
 admin.site.register(BloodRequest, BloodRequestAdmin)
 admin.site.register(PlasmaDonor, PlasmaDonorAdmin)
+admin.site.register(CareerPost, CareerPostAdmin)

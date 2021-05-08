@@ -905,3 +905,24 @@ class PlasmaDonor(models.Model):
     address = models.TextField()
     status = MultiSelectField(choices=STATUS_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class CareerPost(models.Model):
+    STATUS_CHOICES = [
+        ('Live', 'Live'),
+        ('Closed', 'Closed'),
+    ]
+
+    NATURE_CHOICES = [
+        ('Work from home', 'Work form home'),
+        ('Internship', 'Internship'),
+        ('Volunteership', 'Volunteership'),
+        ('Paid', 'Paid'),
+        ('Unpaid', 'Unpaid'),
+    ]
+
+    title = models.CharField(max_length=100)
+    url = models.URLField(max_length=500)
+    nature = MultiSelectField(choices=NATURE_CHOICES)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    posted_date = models.DateTimeField(auto_now_add=True)

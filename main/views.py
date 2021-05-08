@@ -29,7 +29,8 @@ from main.forms import (
 
 from main.models import (
     Certificate,
-    DistrictCoordinator, )
+    DistrictCoordinator,
+    CareerPost, )
 
 from django.contrib.auth.forms import ( 
     AuthenticationForm,
@@ -558,6 +559,12 @@ def privacy_policy(request):
 
 def team(request):
     return render(request, 'main/team.html')
+
+
+def careers(request):
+    posts = CareerPost.objects.all().order_by('-posted_date')
+    context = {'posts': posts}
+    return render(request, 'main/careers.html', context)
 
 
 # Error Handler View
