@@ -73,10 +73,10 @@
     <div class="row mt-5">
         <div class="col-lg-6">
             <h3>Want to explore FindREDD?</h3>
-            <p class="mt-3">At FindREDD, we provide opportunities in various fields to the students of India, 
-                where they learn new things and unleash their potential.
+            <p class="mt-3">At FindREDD, we provide opportunities in various fields to the students of India 
+                so that they can learn new things and unleash their potential.
             </p>
-            <a href="#current_opening" class="btn btn-sm btn-primary">Current opening &gt;&gt;</a>
+            <a href="#openings" class="btn btn-sm btn-primary">Check openings &gt;&gt;</a>
         </div>
         <div class="col-lg-6">
             <div class="text-center mt-5 mt-lg-0">
@@ -99,8 +99,8 @@
 
 
 <!-- Current Opening Section -->
-<div class="container py-4 mb-4" id="current_opening">
-    <h3 class="mb-2">Current opening</h3><br>
+<div class="container py-4 mb-4" id="openings">
+    <h3 class="mb-2">Openings</h3><br>
 
     {% if posts %}
         {% for post in posts %}
@@ -123,7 +123,7 @@
     <div class="not-found-section text-center text-muted">
         <div class="mt-5 mb-5 py-5">
             <div><img src="{% static 'main/images/icons/not_found.png' %}" width="64px"></div>
-            <div class="mt-2"><span>Sorry, No current post is available!</span></div>            
+            <div class="mt-2"><span>Sorry, No opening is available!</span></div>            
         </div>
     </div><br>
     {% endif %}
